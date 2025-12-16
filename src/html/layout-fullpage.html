@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="@@language">
+  <head>
+    @@include('../includes/_head.html', { page_main: false, page_name: "layout-fullpage", page_title: "Fullpage Layout",
+    page_description: "풀페이지 히어로 레이아웃 예시", page_url: "/html/layout-fullpage.html" })
+  </head>
+  <body>
+    @@include('../includes/_skip-link.html')
+    <div id="root" class="layout__root layout__fullpage layout-fullpage">
+      <section class="layout-fullpage__hero" aria-labelledby="fullpage-hero-title">
+        <h1 id="fullpage-hero-title">풀페이지 히어로 레이아웃</h1>
+        <p>전체 화면을 활용하여 핵심 메시지와 주요 CTA를 강조하는 레이아웃 예시입니다.</p>
+        <div class="layout-fullpage__actions">
+          <a class="layout-fullpage__button layout-fullpage__button--primary" href="/html/home.html">시작하기</a>
+          <a class="layout-fullpage__button layout-fullpage__button--secondary" href="/index.html">템플릿 살펴보기</a>
+        </div>
+      </section>
+
+      <section class="layout-fullpage__highlights" aria-label="특징">
+        <article class="layout-fullpage__card">
+          <h3>간결한 메시지</h3>
+          <p>주요 가치를 한 줄로 전달하여 사용자에게 명확한 행동 유도(CTA)를 제공합니다.</p>
+        </article>
+        <article class="layout-fullpage__card">
+          <h3>유연한 구성</h3>
+          <p>배경, 버튼, 카드 등 요소를 조합하여 랜딩, 공지, 마케팅 페이지에 활용할 수 있습니다.</p>
+        </article>
+        <article class="layout-fullpage__card">
+          <h3>접근성 고려</h3>
+          <p>텍스트 대비, 포커스 스타일, 의미 있는 레이블을 통해 접근성 요구 사항을 지원합니다.</p>
+        </article>
+      </section>
+
+      <ul class="layout-fullpage__checklist" aria-label="적용 예시">
+        <li>런칭/이벤트 랜딩 페이지</li>
+        <li>서비스 점검/공지 화면</li>
+        <li>간단한 온보딩 또는 스플래시</li>
+      </ul>
+
+      <footer class="layout-fullpage__footer">
+        <a href="/index.html">← 시작 페이지로 돌아가기</a>
+      </footer>
+    </div>
+
+    @@include('../includes/_script.html')
+  </body>
+</html>
+

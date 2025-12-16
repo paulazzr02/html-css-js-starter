@@ -1,0 +1,105 @@
+// ========================================
+// Grid/Card Layout
+// ========================================
+
+.layout-grid {
+  padding: 2rem;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--krds-color-light-gray-90, #1e2124);
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      color: var(--krds-color-light-gray-50, #6d7882);
+    }
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  &__footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--krds-color-light-gray-30, #b1b8be);
+    text-align: center;
+  }
+}
+
+.card {
+  background: var(--krds-color-light-gray-0, #ffffff);
+  border: 1px solid var(--krds-color-light-gray-30, #b1b8be);
+  border-radius: var(--krds-radius-medium1, 0.6rem);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+
+  &__image {
+    width: 100%;
+    height: 200px;
+    background: var(--krds-color-light-gray-10, #e6e8ea);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image-placeholder {
+    color: var(--krds-color-light-gray-50, #6d7882);
+    font-size: 0.875rem;
+  }
+
+  &__content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--krds-color-light-gray-90, #1e2124);
+  }
+
+  &__description {
+    flex: 1;
+    line-height: 1.6;
+    color: var(--krds-color-light-gray-60, #58616a);
+    margin-bottom: 1rem;
+  }
+
+  &__link {
+    color: var(--krds-color-light-primary-50, #256ef4);
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: auto;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// 반응형
+@media (max-width: 768px) {
+  .layout-grid__container {
+    grid-template-columns: 1fr;
+  }
+}
+

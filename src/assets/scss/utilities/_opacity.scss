@@ -1,0 +1,36 @@
+// ========================================
+// Opacity 유틸리티 클래스
+// @group utilities
+// @description 투명도 관련 유틸리티 클래스들
+//
+// 사용법:
+// <div class="u__opacity--0">Opacity 0</div>
+// <div class="u__opacity--50">Opacity 50</div>
+//
+// 주요 클래스:
+// - u__opacity--0: 투명도 0
+// - u__opacity--25: 투명도 25%
+// - u__opacity--50: 투명도 50%
+// - u__opacity--75: 투명도 75%
+// - u__opacity--100: 투명도 100%
+// ========================================
+
+// 투명도 맵
+$opacity-map: (
+  0: 0,
+  25: 0.25,
+  50: 0.5,
+  75: 0.75,
+  100: 1,
+);
+
+// 유틸리티 블록 (Block)
+.u {
+  &__opacity {
+    @each $key, $value in $opacity-map {
+      &--#{$key} {
+        opacity: #{$value} !important;
+      }
+    }
+  }
+}

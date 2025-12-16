@@ -1,0 +1,33 @@
+// ========================================
+// Float 유틸리티 클래스
+// @group utilities
+// @description 플로트 속성 관련 유틸리티 클래스들
+//
+// 사용법:
+// <div class="u__float--start">
+//   Float Start Content
+// </div>
+//
+// 주요 클래스:
+// - u__float--start: 플로트 시작 (left)
+// - u__float--end: 플로트 끝 (right)
+// - u__float--none: 플로트 제거
+// ========================================
+
+// 플로트 맵
+$float-map: (
+  start: left,
+  end: right,
+  none: none,
+);
+
+// 유틸리티 블록 (Block)
+.u {
+  &__float {
+    @each $key, $value in $float-map {
+      &--#{$key} {
+        float: #{$value} !important;
+      }
+    }
+  }
+}

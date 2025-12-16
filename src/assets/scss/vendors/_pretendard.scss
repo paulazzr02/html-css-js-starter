@@ -1,0 +1,71 @@
+// ========================================
+// Pretendard 폰트
+// @description Pretendard 폰트 로딩 및 font-display 설정
+// @license SIL Open Font License 1.1 (무료 사용 가능)
+// 참고: https://github.com/orioncactus/pretendard
+// ========================================
+
+// Pretendard 폰트 경로 설정
+$cs-font-path: '/assets/fonts/pretendard/' !default;
+
+// Variable 폰트 import (가변 폰트)
+// @import 'pretendard/dist/web/variable/pretendardvariable.css';
+
+// Variable 폰트 경로 override (빌드된 경로로 변경)
+@font-face {
+  font-family: 'Pretendard Variable';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url('#{$cs-font-path}variable/woff2/PretendardVariable.woff2') format('woff2-variations');
+}
+
+// Static 폰트 import (fallback - 구형 브라우저 호환성)
+// @import 'pretendard/dist/web/static/pretendard.css';
+
+// Static 폰트 경로 override (빌드된 경로로 변경)
+// 필요한 weight만 override (Regular, Medium, Bold는 필수)
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local('Pretendard Regular'),
+    url('#{$cs-font-path}static/woff2/Pretendard-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local('Pretendard Medium'),
+    url('#{$cs-font-path}static/woff2/Pretendard-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local('Pretendard Bold'),
+    url('#{$cs-font-path}static/woff2/Pretendard-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-display: swap;
+  src:
+    local('Pretendard Light'),
+    url('#{$cs-font-path}static/woff2/Pretendard-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local('Pretendard SemiBold'),
+    url('#{$cs-font-path}static/woff2/Pretendard-SemiBold.woff2') format('woff2');
+}

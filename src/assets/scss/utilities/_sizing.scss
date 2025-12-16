@@ -1,0 +1,103 @@
+// ========================================
+// Sizing 유틸리티 클래스
+// @group utilities
+// @description 너비, 높이 관련 유틸리티 클래스들
+//
+// 사용법:
+// <div class="u__w--50 u__h--100 u__mw--100">
+//   Sized Content
+// </div>
+//
+// 주요 클래스:
+// - u__w--25: 너비 25%
+// - u__w--50: 너비 50%
+// - u__w--75: 너비 75%
+// - u__w--100: 너비 100%
+// - u__w--auto: 너비 auto
+// - u__h--25: 높이 25%
+// - u__h--50: 높이 50%
+// - u__h--75: 높이 75%
+// - u__h--100: 높이 100%
+// - u__h--auto: 높이 auto
+// - u__mw--100: 최대 너비 100%
+// - u__mh--100: 최대 높이 100%
+// ========================================
+
+// 크기 값 맵
+$sizing-map: (
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%,
+  auto: auto,
+);
+
+// 유틸리티 블록 (Block)
+.u {
+  // 너비 유틸리티
+  &__w {
+    @each $key, $value in $sizing-map {
+      &--#{$key} {
+        width: #{$value} !important;
+      }
+    }
+  }
+
+  // 높이 유틸리티
+  &__h {
+    @each $key, $value in $sizing-map {
+      &--#{$key} {
+        height: #{$value} !important;
+      }
+    }
+  }
+
+  // 최대 너비 유틸리티
+  &__mw {
+    @each $key, $value in $sizing-map {
+      &--#{$key} {
+        max-width: #{$value} !important;
+      }
+    }
+  }
+
+  // 최대 높이 유틸리티
+  &__mh {
+    @each $key, $value in $sizing-map {
+      &--#{$key} {
+        max-height: #{$value} !important;
+      }
+    }
+  }
+
+  // 최소 너비 유틸리티
+  &__minw {
+    @each $key, $value in $sizing-map {
+      &--#{$key} {
+        min-width: #{$value} !important;
+      }
+    }
+  }
+
+  // 최소 높이 유틸리티
+  &__minh {
+    @each $key, $value in $sizing-map {
+      &--#{$key} {
+        min-height: #{$value} !important;
+      }
+    }
+  }
+
+  // 뷰포트 기반 크기
+  &__vw {
+    &--100 {
+      width: 100vw !important;
+    }
+  }
+
+  &__vh {
+    &--100 {
+      height: 100vh !important;
+    }
+  }
+}

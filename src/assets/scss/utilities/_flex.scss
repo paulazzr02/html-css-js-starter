@@ -1,0 +1,243 @@
+// ========================================
+// Flex 유틸리티 클래스
+// @group utilities
+// @description Flexbox 관련 유틸리티 클래스들
+//
+// 사용법:
+// <div class="u__flex--row u__justify-content--center u__align-items--center">
+//   Flex Content
+// </div>
+// <div class="u__stack--vr u__stack--gap--2">
+//   <div>Stack Item 1</div>
+//   <div>Stack Item 2</div>
+// </div>
+//
+// 주요 클래스:
+// - u__flex--row: 가로 방향
+// - u__flex--column: 세로 방향
+// - u__flex--wrap: 줄바꿈 허용
+// - u__flex--nowrap: 줄바꿈 금지
+// - u__justify-content--center: 가로 정렬
+// - u__align-items--center: 세로 정렬
+// - u__justify-self--center: Grid 내 정렬
+// - u__flex--0|1|auto|none: 간단한 flex 크기
+// - u__flex--grow--{value}: flex-grow 개별 설정 (0, 1, 2, 3, 4, 5)
+// - u__flex--shrink--{value}: flex-shrink 개별 설정 (0, 1, 2, 3, 4, 5)
+// - u__flex--basis--{value}: flex-basis 개별 설정 (0, 0pct, auto, 25pct, 50pct, 75pct, 100pct, 1px, 50px, 100px, 200px)
+//   예: u__flex--grow--1 u__flex--shrink--0 u__flex--basis--0 → flex: 1 0 0
+// - u__stack--hr: 수평 스택 (horizontal row)
+// - u__stack--vr: 수직 스택 (vertical row)
+// - u__stack--gap--1: 스택 간격 1
+// - u__stack--gap--2: 스택 간격 2
+// - u__stack--gap--3: 스택 간격 3
+// ========================================
+
+@use '../abstracts/variables' as *;
+
+// 플렉스 방향 맵
+$flex-direction-map: (
+  row: row,
+  column: column,
+  'row-reverse': row-reverse,
+  'column-reverse': column-reverse,
+);
+
+// 플렉스 래핑 맵
+$flex-wrap-map: (
+  wrap: wrap,
+  nowrap: nowrap,
+  'wrap-reverse': wrap-reverse,
+);
+
+// 플렉스 정렬 맵
+$justify-content-map: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly,
+);
+
+$align-items-map: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  baseline: baseline,
+  stretch: stretch,
+);
+
+$align-self-map: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  baseline: baseline,
+  stretch: stretch,
+);
+
+$align-content-map: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly,
+  stretch: stretch,
+);
+
+// 플렉스 크기 맵 (간단한 형식)
+$flex-size-map: (
+  0: 0 0 auto,
+  1: 1 1 0%,
+  auto: 1 1 auto,
+  none: none,
+);
+
+// 플렉스 grow 맵
+$flex-grow-map: (
+  0: 0,
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+);
+
+// 플렉스 shrink 맵
+$flex-shrink-map: (
+  0: 0,
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+);
+
+// 플렉스 basis 맵 (키는 클래스명에 사용, 값은 CSS 값)
+$flex-basis-map: (
+  '0': 0,
+  '0pct': 0%,
+  auto: auto,
+  '25pct': 25%,
+  '50pct': 50%,
+  '75pct': 75%,
+  '100pct': 100%,
+);
+
+// 간격 맵 (KRDS 디자인 토큰 사용, fallback으로 프로젝트 변수)
+$gap-map: (
+  0: 0,
+  1: var(--krds-number-1, var(--cs-spacing-xs)),
+  2: var(--krds-number-2, var(--cs-spacing-sm)),
+  3: var(--krds-number-6, var(--cs-spacing-md)),
+  4: var(--krds-number-7, var(--cs-spacing-lg)),
+  5: var(--krds-number-9, var(--cs-spacing-xl)),
+);
+
+// 유틸리티 블록 (Block)
+.u {
+  // 플렉스 방향 유틸리티
+  &__flex {
+    @each $key, $value in $flex-direction-map {
+      &--#{$key} {
+        flex-direction: #{$value} !important;
+      }
+    }
+
+    // 플렉스 래핑 유틸리티
+    @each $key, $value in $flex-wrap-map {
+      &--#{$key} {
+        flex-wrap: #{$value} !important;
+      }
+    }
+
+    // 플렉스 크기 유틸리티 (간단한 형식)
+    @each $key, $value in $flex-size-map {
+      &--#{$key} {
+        flex: #{$value} !important;
+      }
+    }
+
+    // 플렉스 grow 유틸리티
+    &--grow {
+      @each $key, $value in $flex-grow-map {
+        &--#{$key} {
+          flex-grow: #{$value} !important;
+        }
+      }
+    }
+
+    // 플렉스 shrink 유틸리티
+    &--shrink {
+      @each $key, $value in $flex-shrink-map {
+        &--#{$key} {
+          flex-shrink: #{$value} !important;
+        }
+      }
+    }
+
+    // 플렉스 basis 유틸리티
+    &--basis {
+      @each $key, $value in $flex-basis-map {
+        &--#{$key} {
+          flex-basis: #{$value} !important;
+        }
+      }
+    }
+  }
+
+  // 플렉스 정렬 유틸리티
+  &__justify-content {
+    @each $key, $value in $justify-content-map {
+      &--#{$key} {
+        justify-content: #{$value} !important;
+      }
+    }
+  }
+
+  &__align-items {
+    @each $key, $value in $align-items-map {
+      &--#{$key} {
+        align-items: #{$value} !important;
+      }
+    }
+  }
+
+  &__align-self {
+    @each $key, $value in $align-self-map {
+      &--#{$key} {
+        align-self: #{$value} !important;
+      }
+    }
+  }
+
+  &__align-content {
+    @each $key, $value in $align-content-map {
+      &--#{$key} {
+        align-content: #{$value} !important;
+      }
+    }
+  }
+
+  // 스택 유틸리티 (Bootstrap 5 스타일)
+  &__stack {
+    display: flex;
+
+    &--hr {
+      display: flex; // 단독 사용 시에도 수평 배치 보장
+      flex-direction: row;
+    }
+
+    &--vr {
+      display: flex; // 단독 사용 시에도 수직 배치 보장
+      flex-direction: column;
+    }
+
+    // 스택 간격
+    @each $key, $value in $gap-map {
+      &--gap--#{$key} {
+        gap: #{$value} !important;
+      }
+    }
+  }
+}

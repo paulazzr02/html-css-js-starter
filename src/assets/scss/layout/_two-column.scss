@@ -1,0 +1,131 @@
+// ========================================
+// Two Column Layout
+// ========================================
+
+.layout-two-column {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+  padding: 2rem;
+
+  &__sidebar {
+    background: var(--krds-color-light-gray-5, #f4f5f6);
+    padding: 1.5rem;
+    border-radius: var(--krds-radius-medium1, 0.6rem);
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+  }
+
+  &__sidebar-nav {
+    margin-bottom: 2rem;
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--krds-color-light-gray-90, #1e2124);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 0.5rem;
+
+        a {
+          display: block;
+          padding: 0.5rem 0.75rem;
+          color: var(--krds-color-light-gray-60, #58616a);
+          text-decoration: none;
+          border-radius: var(--krds-radius-small1, 0.4rem);
+          transition: background-color 0.2s ease;
+
+          &:hover {
+            background: var(--krds-color-light-gray-10, #e6e8ea);
+            color: var(--krds-color-light-primary-50, #256ef4);
+          }
+        }
+      }
+    }
+  }
+
+  &__sidebar-widget {
+    h3 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--krds-color-light-gray-90, #1e2124);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 0.5rem;
+
+        a {
+          color: var(--krds-color-light-gray-60, #58616a);
+          text-decoration: none;
+
+          &:hover {
+            color: var(--krds-color-light-primary-50, #256ef4);
+          }
+        }
+      }
+    }
+  }
+
+  &__main {
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--krds-color-light-gray-90, #1e2124);
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      color: var(--krds-color-light-gray-50, #6d7882);
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__section {
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      color: var(--krds-color-light-gray-90, #1e2124);
+    }
+
+    p {
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      color: var(--krds-color-light-gray-60, #58616a);
+    }
+  }
+
+  &__footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--krds-color-light-gray-30, #b1b8be);
+  }
+
+  // 반응형
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+
+    &__sidebar {
+      position: static;
+      order: 2;
+    }
+
+    &__main {
+      order: 1;
+    }
+  }
+}
+

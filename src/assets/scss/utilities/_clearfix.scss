@@ -1,0 +1,24 @@
+// ========================================
+// Clearfix 유틸리티 클래스
+// @group utilities
+// @description 플로트 요소 초기화를 위한 유틸리티 클래스
+//
+// 사용법:
+// <div class="u__clearfix">
+//   <div class="float-start">Float Content</div>
+// </div>
+//
+// 주요 클래스:
+// - u__clearfix: 플로트 요소 초기화
+// ========================================
+
+// 유틸리티 블록 (Block)
+.u {
+  &__clearfix {
+    &::after {
+      display: block;
+      clear: both;
+      content: '';
+    }
+  }
+}

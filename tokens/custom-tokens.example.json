@@ -1,0 +1,141 @@
+{
+  "$themes": [
+    {
+      "name": "light",
+      "selectedTokenSets": {
+        "core": "enabled"
+      }
+    }
+  ],
+  "light": {
+    "color": {
+      "primary": {
+        "50": {
+          "value": "#ecf2fe",
+          "type": "color",
+          "description": "Primary color - lightest shade"
+        },
+        "100": {
+          "value": "#d8e5fd",
+          "type": "color",
+          "description": "Primary color - very light"
+        },
+        "500": {
+          "value": "#256ef4",
+          "type": "color",
+          "description": "Primary brand color"
+        },
+        "900": {
+          "value": "#020f27",
+          "type": "color",
+          "description": "Primary color - darkest shade"
+        }
+      },
+      "secondary": {
+        "500": {
+          "value": "#346fb2",
+          "type": "color",
+          "description": "Secondary brand color"
+        }
+      },
+      "neutral": {
+        "0": {
+          "value": "#000000",
+          "type": "color",
+          "description": "Pure black"
+        },
+        "50": {
+          "value": "#f8f9fa",
+          "type": "color"
+        },
+        "100": {
+          "value": "#e9ecef",
+          "type": "color"
+        },
+        "500": {
+          "value": "#6c757d",
+          "type": "color"
+        },
+        "900": {
+          "value": "#212529",
+          "type": "color"
+        },
+        "white": {
+          "value": "#ffffff",
+          "type": "color",
+          "description": "Pure white"
+        }
+      },
+      "success": {
+        "500": {
+          "value": "#71b547",
+          "type": "color",
+          "description": "Success color"
+        }
+      }
+    },
+    "spacing": {
+      "xs": {
+        "value": 4,
+        "type": "spacing",
+        "description": "Extra small spacing (4px)"
+      },
+      "sm": {
+        "value": 8,
+        "type": "spacing",
+        "description": "Small spacing (8px)"
+      },
+      "md": {
+        "value": 16,
+        "type": "spacing",
+        "description": "Medium spacing (16px, 기본값)"
+      },
+      "lg": {
+        "value": 24,
+        "type": "spacing",
+        "description": "Large spacing (24px)"
+      },
+      "xl": {
+        "value": 32,
+        "type": "spacing",
+        "description": "Extra large spacing (32px)"
+      }
+    },
+    "radius": {
+      "sm": {
+        "value": 4,
+        "type": "radius",
+        "description": "Small border radius (4px)"
+      },
+      "md": {
+        "value": 8,
+        "type": "radius",
+        "description": "Medium border radius (8px)"
+      },
+      "lg": {
+        "value": 12,
+        "type": "radius",
+        "description": "Large border radius (12px)"
+      }
+    },
+    "typography": {
+      "fontSize": {
+        "sm": {
+          "value": 14,
+          "type": "fontSize",
+          "description": "Small font size (14px)"
+        },
+        "md": {
+          "value": 16,
+          "type": "fontSize",
+          "description": "Medium font size (16px, 기본값)"
+        },
+        "lg": {
+          "value": 18,
+          "type": "fontSize",
+          "description": "Large font size (18px)"
+        }
+      }
+    }
+  }
+}

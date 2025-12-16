@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="@@language">
+  <head>
+    @@include('./includes/_head.html', { page_main: true, page_name: "home", page_title: "홈",
+    page_description: "템플릿 시작 페이지", page_url: "/" })
+  </head>
+  <body>
+    <div
+      class="layout__root layout__fullpage"
+      style="align-items: center; justify-content: center; min-height: 100vh; padding: 2rem"
+    >
+      <div style="text-align: center; max-width: 600px">
+        <h1 style="margin-bottom: 1rem">템플릿 시작 페이지</h1>
+        <p style="margin-bottom: 2rem; color: #666">
+          이 템플릿을 사용하여 새로운 프로젝트를 시작하세요.
+        </p>
+        <nav
+          style="
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              gap: 1rem;
+              flex-wrap: wrap;
+              justify-content: center;
+              margin-bottom: 1rem;
+            "
+          >
+            <a
+              href="/html/home.html"
+              style="
+                padding: 0.75rem 1.5rem;
+                background: #256ef4;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+              "
+            >
+              Home 페이지
+            </a>
+            <a
+              href="/html/login.html"
+              style="
+                padding: 0.75rem 1.5rem;
+                background: #6c757d;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+              "
+            >
+              Login 페이지
+            </a>
+            <a
+              href="/html/signup.html"
+              style="
+                padding: 0.75rem 1.5rem;
+                background: #198754;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+              "
+            >
+              Signup 페이지
+            </a>
+          </div>
+          <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #ddd; width: 100%">
+            <h2 style="font-size: 1.25rem; margin-bottom: 1rem; color: #333">
+              레이아웃 샘플 페이지
+            </h2>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 0.75rem;
+                width: 100%;
+                max-width: 800px;
+              "
+            >
+              <a
+                href="/html/layout-single-column.html"
+                style="
+                  padding: 0.75rem 1rem;
+                  background: #ffffff;
+                  color: #256ef4;
+                  text-decoration: none;
+                  border: 2px solid #256ef4;
+                  border-radius: 4px;
+                  text-align: center;
+                  transition: all 0.2s;
+                "
+                onmouseover="this.style.background='#256ef4'; this.style.color='white';"
+                onmouseout="this.style.background='#ffffff'; this.style.color='#256ef4';"
+              >
+                Single Column
+              </a>
+              <a
+                href="/html/layout-two-column.html"
+                style="
+                  padding: 0.75rem 1rem;
+                  background: #ffffff;
+                  color: #256ef4;
+                  text-decoration: none;
+                  border: 2px solid #256ef4;
+                  border-radius: 4px;
+                  text-align: center;
+                  transition: all 0.2s;
+                "
+                onmouseover="this.style.background='#256ef4'; this.style.color='white';"
+                onmouseout="this.style.background='#ffffff'; this.style.color='#256ef4';"
+              >
+                Two Column
+              </a>
+              <a
+                href="/html/layout-three-column.html"
+                style="
+                  padding: 0.75rem 1rem;
+                  background: #ffffff;
+                  color: #256ef4;
+                  text-decoration: none;
+                  border: 2px solid #256ef4;
+                  border-radius: 4px;
+                  text-align: center;
+                  transition: all 0.2s;
+                "
+                onmouseover="this.style.background='#256ef4'; this.style.color='white';"
+                onmouseout="this.style.background='#ffffff'; this.style.color='#256ef4';"
+              >
+                Three Column
+              </a>
+              <a
+                href="/html/layout-grid.html"
+                style="
+                  padding: 0.75rem 1rem;
+                  background: #ffffff;
+                  color: #256ef4;
+                  text-decoration: none;
+                  border: 2px solid #256ef4;
+                  border-radius: 4px;
+                  text-align: center;
+                  transition: all 0.2s;
+                "
+                onmouseover="this.style.background='#256ef4'; this.style.color='white';"
+                onmouseout="this.style.background='#ffffff'; this.style.color='#256ef4';"
+              >
+                Grid/Card
+              </a>
+              <a
+                href="/html/layout-magazine.html"
+                style="
+                  padding: 0.75rem 1rem;
+                  background: #ffffff;
+                  color: #256ef4;
+                  text-decoration: none;
+                  border: 2px solid #256ef4;
+                  border-radius: 4px;
+                  text-align: center;
+                  transition: all 0.2s;
+                "
+                onmouseover="this.style.background='#256ef4'; this.style.color='white';"
+                onmouseout="this.style.background='#ffffff'; this.style.color='#256ef4';"
+              >
+                Magazine
+              </a>
+              <a
+                href="/html/layout-dashboard.html"
+                style="
+                  padding: 0.75rem 1rem;
+                  background: #ffffff;
+                  color: #256ef4;
+                  text-decoration: none;
+                  border: 2px solid #256ef4;
+                  border-radius: 4px;
+                  text-align: center;
+                  transition: all 0.2s;
+                "
+                onmouseover="this.style.background='#256ef4'; this.style.color='white';"
+                onmouseout="this.style.background='#ffffff'; this.style.color='#256ef4';"
+              >
+                Dashboard
+              </a>
+              <a
+                href="/html/layout-fullpage.html"
+                style="
+                  padding: 0.75rem 1rem;
+                  background: #ffffff;
+                  color: #256ef4;
+                  text-decoration: none;
+                  border: 2px solid #256ef4;
+                  border-radius: 4px;
+                  text-align: center;
+                  transition: all 0.2s;
+                "
+                onmouseover="this.style.background='#256ef4'; this.style.color='white';"
+                onmouseout="this.style.background='#ffffff'; this.style.color='#256ef4';"
+              >
+                Fullpage Hero
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    @@include('./includes/_script.html')
+  </body>
+</html>

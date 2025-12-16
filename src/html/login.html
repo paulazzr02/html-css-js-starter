@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="@@language">
+  <head>
+    @@include('../includes/_head.html', { page_main: false, page_name: "login", page_title:
+    "로그인", page_description: "Login 페이지 예시", page_url: "/html/login.html" })
+  </head>
+  <body>
+    <div class="layout__root layout__fullpage auth-page">
+      <div class="auth-card">
+        <div class="auth-card__header">
+          <h1>로그인</h1>
+          <p>계정에 접속해 서비스와 데이터를 확인하세요.</p>
+        </div>
+
+        <form class="auth-form">
+          <div class="auth-form__field">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="auth-form__field">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required />
+          </div>
+          <div class="auth-form__actions">
+            <button type="submit" class="auth-button">로그인</button>
+          </div>
+        </form>
+
+        <p class="auth-secondary" style="margin-top: 1rem">
+          아직 계정이 없으신가요? <a href="/html/signup.html">회원가입</a>
+        </p>
+        <p class="auth-secondary" style="margin-top: 0.25rem">
+          <a href="/index.html">← 시작 페이지로 돌아가기</a>
+        </p>
+      </div>
+    </div>
+
+    @@include('../includes/_script.html')
+  </body>
+</html>

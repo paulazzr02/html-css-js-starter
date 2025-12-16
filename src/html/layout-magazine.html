@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="@@language">
+  <head>
+    @@include('../includes/_head.html', { page_main: false, page_name: "layout-magazine",
+    page_title: "Magazine Layout", page_description: "매거진 레이아웃 예시", page_url:
+    "/html/layout-magazine.html" })
+  </head>
+  <body>
+    @@include('../includes/_skip-link.html')
+    <div id="root" class="layout__root layout__page">
+      @@include('../includes/_header.html', { page_name: "layout-magazine" })
+
+      <!-- 본문 영역 -->
+      <main class="layout__content" id="main" role="main">
+        <div class="layout__content__container layout-magazine">
+          <!-- 히어로 섹션 -->
+          <section class="layout-magazine__hero">
+            <article class="hero-article">
+              <div class="hero-article__image">
+                <div class="hero-article__image-placeholder">메인 이미지</div>
+              </div>
+              <div class="hero-article__content">
+                <span class="hero-article__category">카테고리</span>
+                <h1 class="hero-article__title">메인 기사 제목</h1>
+                <p class="hero-article__excerpt">
+                  매거진 레이아웃은 뉴스 사이트, 블로그, 잡지 스타일 웹사이트에서 사용됩니다. 주요
+                  기사를 강조하고 다양한 크기의 콘텐츠를 배치합니다.
+                </p>
+                <a href="#" class="hero-article__link">전체 기사 읽기 →</a>
+              </div>
+            </article>
+          </section>
+
+          <!-- 서브 기사 그리드 -->
+          <section class="layout-magazine__featured">
+            <h2 class="layout-magazine__section-title">주요 기사</h2>
+            <div class="layout-magazine__featured-grid">
+              <article class="featured-article">
+                <div class="featured-article__image">
+                  <div class="featured-article__image-placeholder">이미지</div>
+                </div>
+                <div class="featured-article__content">
+                  <span class="featured-article__category">기술</span>
+                  <h3 class="featured-article__title">기사 제목 1</h3>
+                  <p class="featured-article__excerpt">짧은 기사 요약 내용이 여기에 표시됩니다.</p>
+                </div>
+              </article>
+
+              <article class="featured-article">
+                <div class="featured-article__image">
+                  <div class="featured-article__image-placeholder">이미지</div>
+                </div>
+                <div class="featured-article__content">
+                  <span class="featured-article__category">디자인</span>
+                  <h3 class="featured-article__title">기사 제목 2</h3>
+                  <p class="featured-article__excerpt">짧은 기사 요약 내용이 여기에 표시됩니다.</p>
+                </div>
+              </article>
+
+              <article class="featured-article">
+                <div class="featured-article__image">
+                  <div class="featured-article__image-placeholder">이미지</div>
+                </div>
+                <div class="featured-article__content">
+                  <span class="featured-article__category">비즈니스</span>
+                  <h3 class="featured-article__title">기사 제목 3</h3>
+                  <p class="featured-article__excerpt">짧은 기사 요약 내용이 여기에 표시됩니다.</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- 메인 콘텐츠 영역 -->
+          <div class="layout-magazine__main">
+            <div class="layout-magazine__content">
+              <section class="layout-magazine__section">
+                <h2>최신 기사</h2>
+                <article class="layout-magazine__article-item">
+                  <div class="layout-magazine__article-item__image">
+                    <div class="layout-magazine__article-item__image-placeholder">이미지</div>
+                  </div>
+                  <div class="layout-magazine__article-item__content">
+                    <span class="layout-magazine__article-item__category">카테고리</span>
+                    <h3 class="layout-magazine__article-item__title">기사 제목 4</h3>
+                    <p class="layout-magazine__article-item__excerpt">
+                      기사 요약 내용이 여기에 표시됩니다. 여러 줄의 텍스트가 들어갈 수 있습니다.
+                    </p>
+                    <time class="layout-magazine__article-item__date">2024년 1월 1일</time>
+                  </div>
+                </article>
+
+                <article class="layout-magazine__article-item">
+                  <div class="layout-magazine__article-item__image">
+                    <div class="layout-magazine__article-item__image-placeholder">이미지</div>
+                  </div>
+                  <div class="layout-magazine__article-item__content">
+                    <span class="layout-magazine__article-item__category">카테고리</span>
+                    <h3 class="layout-magazine__article-item__title">기사 제목 5</h3>
+                    <p class="layout-magazine__article-item__excerpt">
+                      기사 요약 내용이 여기에 표시됩니다. 여러 줄의 텍스트가 들어갈 수 있습니다.
+                    </p>
+                    <time class="layout-magazine__article-item__date">2024년 1월 2일</time>
+                  </div>
+                </article>
+
+                <article class="layout-magazine__article-item">
+                  <div class="layout-magazine__article-item__image">
+                    <div class="layout-magazine__article-item__image-placeholder">이미지</div>
+                  </div>
+                  <div class="layout-magazine__article-item__content">
+                    <span class="layout-magazine__article-item__category">카테고리</span>
+                    <h3 class="layout-magazine__article-item__title">기사 제목 6</h3>
+                    <p class="layout-magazine__article-item__excerpt">
+                      기사 요약 내용이 여기에 표시됩니다. 여러 줄의 텍스트가 들어갈 수 있습니다.
+                    </p>
+                    <time class="layout-magazine__article-item__date">2024년 1월 3일</time>
+                  </div>
+                </article>
+              </section>
+            </div>
+
+            <aside class="layout-magazine__sidebar" role="complementary">
+              <div class="layout-magazine__sidebar-widget">
+                <h3>인기 기사</h3>
+                <ul class="layout-magazine__popular-list">
+                  <li><a href="#">인기 기사 제목 1</a></li>
+                  <li><a href="#">인기 기사 제목 2</a></li>
+                  <li><a href="#">인기 기사 제목 3</a></li>
+                  <li><a href="#">인기 기사 제목 4</a></li>
+                  <li><a href="#">인기 기사 제목 5</a></li>
+                </ul>
+              </div>
+              <div class="layout-magazine__sidebar-widget">
+                <h3>태그</h3>
+                <div class="layout-magazine__tag-cloud">
+                  <span class="layout-magazine__tag-cloud__tag">기술</span>
+                  <span class="layout-magazine__tag-cloud__tag">디자인</span>
+                  <span class="layout-magazine__tag-cloud__tag">비즈니스</span>
+                  <span class="layout-magazine__tag-cloud__tag">마케팅</span>
+                  <span class="layout-magazine__tag-cloud__tag">개발</span>
+                </div>
+              </div>
+            </aside>
+          </div>
+
+          <div class="layout-magazine__footer">
+            <p><a href="/index.html">← 시작 페이지로 돌아가기</a></p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    @@include('../includes/_script.html')
+  </body>
+</html>

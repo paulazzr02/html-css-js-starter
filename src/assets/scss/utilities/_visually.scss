@@ -1,0 +1,44 @@
+// ========================================
+// Visually 유틸리티 클래스
+// @group utilities
+// @description 시각적 표시 관련 유틸리티 클래스들
+//
+// 사용법:
+// <div class="u__visually--visible">
+//   Visible Content
+// </div>
+//
+// 주요 클래스:
+// - u__visually--visible: 시각적으로 보이게 함
+// - u__visually--invisible: 시각적으로 숨기게 함
+// ========================================
+
+// 유틸리티 블록 (Block)
+.u {
+  &__visually {
+    // 시각적으로 보이게 함
+    &--visible {
+      visibility: visible !important;
+    }
+
+    // 시각적으로 숨기게 함
+    &--invisible {
+      visibility: hidden !important;
+    }
+
+    // 완전히 숨기기
+    &--hidden {
+      display: none !important;
+    }
+
+    // 투명하게 만들기
+    &--transparent {
+      opacity: 0 !important;
+    }
+
+    // 불투명하게 만들기
+    &--opaque {
+      opacity: 1 !important;
+    }
+  }
+}

@@ -1,0 +1,188 @@
+// ========================================
+// 프로젝트 SCSS 변수 정의
+// @description 프로젝트 전역에서 사용하는 변수 정의
+// KRDS Primitive Token (--krds-*)을 참조하여 사용
+// ========================================
+
+@use 'sass:meta';
+@use 'sass:list';
+
+// ----------------------------------------
+// 1. 타이포그래피
+// ----------------------------------------
+$cs-font-family-base:
+  'Pretendard',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  'Helvetica Neue',
+  Arial,
+  sans-serif !default;
+$cs-font-size-base: 1rem !default;
+$cs-font-size-xs: 0.8125rem !default;
+$cs-font-size-sm: 0.875rem !default;
+$cs-font-size-lg: 1.125rem !default;
+
+// ----------------------------------------
+// 2. 색상 (KRDS Primitive Token 참조)
+// ----------------------------------------
+// Theme 색상 (단일 소스: Sass 변수에 실제 값 저장)
+// Sass 함수(color.scale 등)와 CSS 변수 모두에서 사용
+// KRDS 토큰 값과 동일하게 유지
+$cs-color-primary: #256ef4 !default;
+$cs-color-secondary: #346fb2 !default;
+$cs-color-success: #228738 !default;
+$cs-color-info: #0b78cb !default;
+$cs-color-warning: #9e6a00 !default;
+$cs-color-danger: #de3412 !default;
+
+// 편의 별칭 (KRDS primitive 토큰 직접 사용)
+$cs-color-white: var(--krds-color-light-gray-0, #ffffff) !default;
+$cs-color-black: var(--krds-color-light-gray-100, #000000) !default;
+$cs-color-gray: var(--krds-color-light-gray-50, #6d7882) !default;
+$cs-color-light: var(--krds-color-light-gray-10, #e6e8ea) !default;
+$cs-color-dark: var(--krds-color-light-gray-90, #1e2124) !default;
+
+// Text (KRDS primitive 토큰 직접 사용)
+$cs-color-text-primary: var(--krds-color-light-gray-90, #1e2124) !default;
+$cs-color-text-secondary: var(--krds-color-light-gray-50, #6d7882) !default;
+$cs-color-text-muted: var(--krds-color-light-gray-50, #6d7882) !default;
+$cs-color-text-title: var(--krds-color-light-gray-60, #58616a) !default;
+
+// Background (KRDS primitive 토큰 직접 사용)
+$cs-color-background-primary: var(--krds-color-light-gray-10, #e6e8ea) !default;
+$cs-color-background-secondary: var(--krds-color-light-gray-5, #f4f5f6) !default;
+$cs-color-background-tertiary: var(--krds-color-light-gray-0, #ffffff) !default;
+
+// Focus
+$cs-color-focus: $cs-color-primary !default;
+
+// ----------------------------------------
+// 3. 간격 (KRDS number 토큰 참조)
+// ----------------------------------------
+$cs-spacing-xs: var(--krds-number-2, 0.2rem) !default; // 0.2rem
+$cs-spacing-sm: var(--krds-number-3, 0.4rem) !default; // 0.4rem
+$cs-spacing-md: var(--krds-number-6, 1rem) !default; // 1rem
+$cs-spacing-lg: var(--krds-number-7, 1.2rem) !default; // 1.2rem
+$cs-spacing-xl: var(--krds-number-9, 2rem) !default; // 2rem
+$cs-spacing-xxl: var(--krds-number-10, 2.4rem) !default; // 2.4rem
+
+// ----------------------------------------
+// 4. 테두리 (KRDS 토큰 참조)
+// ----------------------------------------
+$cs-border-width: var(--krds-light-border-width-variable-regular, 0.1rem) !default;
+$cs-border-color: var(--krds-color-light-gray-30, #b1b8be) !default;
+$cs-radius-sm: var(--krds-radius-small1, var(--krds-number-3, 0.4rem)) !default;
+$cs-radius-md: var(--krds-radius-medium1, var(--krds-number-4, 0.6rem)) !default;
+$cs-radius-lg: var(--krds-radius-large1, var(--krds-number-6, 1rem)) !default;
+$cs-radius-xl: var(--krds-radius-xlarge1, var(--krds-number-7, 1.2rem)) !default;
+
+// ----------------------------------------
+// 5. 전환 효과
+// ----------------------------------------
+$cs-transition-base: 0.2s ease-in-out !default;
+$cs-transition-fast: 0.15s ease-in-out !default;
+
+// ----------------------------------------
+// 6. 그림자
+// ----------------------------------------
+$cs-box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !default;
+$cs-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !default;
+$cs-box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175) !default;
+
+// ----------------------------------------
+// 7. Z-index
+// ----------------------------------------
+$cs-zindex-dropdown: 1000 !default;
+$cs-zindex-sticky: 1020 !default;
+$cs-zindex-fixed: 1030 !default;
+$cs-zindex-modal-backdrop: 1040 !default;
+$cs-zindex-modal: 1050 !default;
+$cs-zindex-popover: 1070 !default;
+$cs-zindex-tooltip: 1080 !default;
+
+// ----------------------------------------
+// CSS 변수로 변환할 변수 맵
+// @description base/_base.scss에서 @each로 자동 생성
+// 변수 추가/수정/제거 시 이 map만 수정하면 됨.
+// ----------------------------------------
+$css-variables-map: (
+  typography: (
+    'cs-font-family-base': $cs-font-family-base,
+    'cs-font-size-base': $cs-font-size-base,
+    'cs-font-size-xs': $cs-font-size-xs,
+    'cs-font-size-sm': $cs-font-size-sm,
+    'cs-font-size-lg': $cs-font-size-lg,
+  ),
+  color: (
+    'cs-color-primary': $cs-color-primary,
+    'cs-color-secondary': $cs-color-secondary,
+    'cs-color-success': $cs-color-success,
+    'cs-color-info': $cs-color-info,
+    'cs-color-warning': $cs-color-warning,
+    'cs-color-danger': $cs-color-danger,
+    'cs-color-white': $cs-color-white,
+    'cs-color-black': $cs-color-black,
+    'cs-color-gray': $cs-color-gray,
+    'cs-color-light': $cs-color-light,
+    'cs-color-dark': $cs-color-dark,
+    'cs-color-text-primary': $cs-color-text-primary,
+    'cs-color-text-secondary': $cs-color-text-secondary,
+    'cs-color-text-muted': $cs-color-text-muted,
+    'cs-color-text-title': $cs-color-text-title,
+    'cs-color-background-primary': $cs-color-background-primary,
+    'cs-color-background-secondary': $cs-color-background-secondary,
+    'cs-color-background-tertiary': $cs-color-background-tertiary,
+    'cs-color-focus': $cs-color-focus,
+  ),
+  spacing: (
+    'cs-spacing-xs': $cs-spacing-xs,
+    'cs-spacing-sm': $cs-spacing-sm,
+    'cs-spacing-md': $cs-spacing-md,
+    'cs-spacing-lg': $cs-spacing-lg,
+    'cs-spacing-xl': $cs-spacing-xl,
+    'cs-spacing-xxl': $cs-spacing-xxl,
+  ),
+  border: (
+    'cs-border-width': $cs-border-width,
+    'cs-border-color': $cs-border-color,
+    'cs-radius-sm': $cs-radius-sm,
+    'cs-radius-md': $cs-radius-md,
+    'cs-radius-lg': $cs-radius-lg,
+    'cs-radius-xl': $cs-radius-xl,
+  ),
+  transition: (
+    'cs-transition-base': $cs-transition-base,
+    'cs-transition-fast': $cs-transition-fast,
+  ),
+  shadow: (
+    'cs-box-shadow-sm': $cs-box-shadow-sm,
+    'cs-box-shadow': $cs-box-shadow,
+    'cs-box-shadow-lg': $cs-box-shadow-lg,
+  ),
+  zindex: (
+    'cs-zindex-dropdown': $cs-zindex-dropdown,
+    'cs-zindex-sticky': $cs-zindex-sticky,
+    'cs-zindex-fixed': $cs-zindex-fixed,
+    'cs-zindex-modal-backdrop': $cs-zindex-modal-backdrop,
+    'cs-zindex-modal': $cs-zindex-modal,
+    'cs-zindex-popover': $cs-zindex-popover,
+    'cs-zindex-tooltip': $cs-zindex-tooltip,
+  ),
+) !default;
+
+// ----------------------------------------
+// CSS 변수 정의
+// ----------------------------------------
+
+:root {
+  // 프로젝트 Semantic Token → CSS 변수
+  @each $category, $vars in $css-variables-map {
+    @if meta.type-of($vars) == 'map' and list.length($vars) > 0 {
+      @each $var-name, $var-value in $vars {
+        --#{$var-name}: #{$var-value};
+      }
+    }
+  }
+}

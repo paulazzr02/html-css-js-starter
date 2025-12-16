@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="@@language">
+  <head>
+    @@include('../includes/_head.html', { page_main: false, page_name: "home", page_title: "홈",
+    page_description: "Home 페이지 예시", page_url: "/html/home.html" })
+  </head>
+  <body>
+    @@include('../includes/_skip-link.html')
+    <div id="root" class="layout__root layout__page">
+      @@include('../includes/_header.html', { page_name: "home" })
+
+      <!-- 본문 영역 -->
+      <main class="layout__content" id="main" role="main">
+        <div class="layout__content__container">
+          <h1>Home 페이지</h1>
+          <p class="lead">템플릿 예시 페이지입니다.</p>
+
+          <!-- 페이지 내용을 여기에 작성하세요 -->
+          <div class="content">
+            <p>이 템플릿을 사용하여 프로젝트를 시작하세요.</p>
+            <p>
+              <a href="/index.html">← 시작 페이지로 돌아가기</a>
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <!-- @@include('../includes/_footer.html') -->
+    </div>
+
+    @@include('../includes/_script.html')
+  </body>
+</html>

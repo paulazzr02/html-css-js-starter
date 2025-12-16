@@ -1,0 +1,131 @@
+// ========================================
+// Icon 유틸리티 클래스
+// @group utilities
+// @description SVG 아이콘을 위한 유틸리티 클래스
+// KRDS 토큰을 사용하여 다른 프로젝트에서도 재사용 가능
+//
+// 사용법:
+// <span class="u__icon u__icon--md" style="--icon-url: url('path/to/icon.svg')"></span>
+// <span class="u__icon u__icon--lg u__icon--primary"></span>
+//
+// 주요 클래스:
+// - u__icon: 기본 아이콘 유틸리티
+// - u__icon--xs: 매우 작은 아이콘 (0.875em)
+// - u__icon--sm: 작은 아이콘 (1em)
+// - u__icon--md: 중간 아이콘 (1.125em)
+// - u__icon--lg: 큰 아이콘 (1.5em)
+// - u__icon--xl: 매우 큰 아이콘 (2em)
+// - u__icon--primary: 주요 색상 아이콘
+// - u__icon--secondary: 보조 색상 아이콘
+// - u__icon--success: 성공 색상 아이콘
+// - u__icon--danger: 위험 색상 아이콘
+// - u__icon--warning: 경고 색상 아이콘
+// - u__icon--info: 정보 색상 아이콘
+// ========================================
+
+// Icon 크기 맵 (하드코딩된 em 값 - 프로젝트 독립적)
+$icon-size-map: (
+  xs: 0.875em,
+  sm: 1em,
+  md: 1.125em,
+  lg: 1.5em,
+  xl: 2em,
+) !default;
+
+// Icon 색상 맵 (KRDS 디자인 토큰 사용, fallback으로 프로젝트 변수)
+// 다른 프로젝트에서도 재사용 가능하도록 CSS 변수 사용
+$icon-color-map: (
+  primary: var(--krds-color-light-primary-50, var(--cs-primary)),
+  secondary: var(--krds-color-light-secondary-50, var(--cs-secondary)),
+  success: var(--krds-color-light-success-50, var(--cs-success)),
+  info: var(--krds-color-light-information-50, var(--cs-info)),
+  warning: var(--krds-color-light-warning-50, var(--cs-warning)),
+  danger: var(--krds-color-light-danger-50, var(--cs-danger)),
+  light: var(--krds-color-light-gray-10, var(--cs-light)),
+  dark: var(--krds-color-light-gray-90, var(--cs-dark)),
+) !default;
+
+// 유틸리티 블록 (Block)
+.u {
+  &__icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    // background-image를 fallback으로 사용 (file:// 프로토콜 호환성)
+    background-image: var(--icon-url);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    // mask-image를 사용하여 currentColor로 색상 변경 가능하게 함
+    mask-image: var(--icon-url);
+    -webkit-mask-image: var(--icon-url);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    vertical-align: middle;
+
+    // 크기 변형 생성
+    @each $key, $value in $icon-size-map {
+      &--#{$key} {
+        width: $value;
+        height: $value;
+      }
+    }
+
+    // 색상 변형 생성
+    @each $key, $value in $icon-color-map {
+      &--#{$key} {
+        color: $value;
+      }
+    }
+
+    // 애니메이션 효과
+    &--rotate {
+      // CSS 변수 사용 (프로젝트 독립적)
+      transition: transform var(--cs-transition-fast, 0.15s ease-in-out);
+
+      &:hover {
+        transform: rotate(180deg);
+      }
+    }
+
+    &--pulse {
+      animation: u__icon-pulse 2s infinite;
+    }
+
+    &--spin {
+      animation: u__icon-spin 1s linear infinite;
+    }
+  }
+}
+
+// ========================================
+// 아이콘 특화 애니메이션
+// ========================================
+
+// 펄스 (크기 변화)
+@keyframes u__icon-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// 스핀 (회전)
+@keyframes u__icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,21 @@
+@@if (typeof showBreadcrumb === 'undefined' || showBreadcrumb !== false) { @@if (typeof breadcrumb !== 'undefined' &&
+breadcrumb && breadcrumb.length > 0) {
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="breadcrumb-nav">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">
+          <svg class="bi" width="16" height="16">
+            <use xlink:href="#ico_bread_home"></use>
+          </svg>
+          Home
+        </a>
+      </li>
+      @@for (var i = 0; i < breadcrumb.length; i++) {
+      <li class="breadcrumb-item active" aria-current="page">` + breadcrumb[i].title + `</li>
+      }
+    </ol>
+  </div>
+</nav>
+} }

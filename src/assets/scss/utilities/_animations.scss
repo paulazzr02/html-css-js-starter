@@ -1,0 +1,40 @@
+// ========================================
+// 범용 애니메이션
+// 여러 기능에서 재사용 가능한 범용 애니메이션
+// 특화된 애니메이션은 각 기능 파일 하단에 구체적인 네이밍으로 추가
+// ========================================
+
+// 슬라이드 인 (우측에서)
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// 페이드 인 (기본)
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// 슬라이드 업 (아래에서 위로)
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+

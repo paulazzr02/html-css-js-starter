@@ -1,0 +1,64 @@
+// ========================================
+// Single Column Layout
+// ========================================
+
+.layout-single-column {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  &__hero {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--krds-color-light-gray-30, #b1b8be);
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--krds-color-light-gray-90, #1e2124);
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      color: var(--krds-color-light-gray-50, #6d7882);
+    }
+  }
+
+  &__content {
+    // 섹션 스타일은 &__section으로 정의
+  }
+
+  &__section {
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      color: var(--krds-color-light-gray-90, #1e2124);
+    }
+
+    p {
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      color: var(--krds-color-light-gray-60, #58616a);
+    }
+
+    ul {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+
+      li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--krds-color-light-gray-30, #b1b8be);
+    text-align: center;
+  }
+}

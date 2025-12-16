@@ -1,0 +1,139 @@
+// ========================================
+// Base (기본 스타일)
+// @description 기본 태그 스타일 정의
+// ========================================
+
+@use 'sass:meta';
+@use 'sass:list';
+@use '../abstracts/variables' as *;
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: $cs-font-family-base;
+  font-size: $cs-font-size-base;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 링크 정책
+a {
+  &:hover {
+    text-decoration: underline;
+  }
+
+  // 링크가 버튼 역할을 하는 경우
+  &:not([href]) {
+    cursor: pointer;
+  }
+}
+
+// 미디어 요소
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+svg {
+  // SVG는 부모 요소의 크기에 맞춤
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+// 리스트
+ul,
+ol {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: $cs-spacing-md;
+}
+
+// 테이블
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  text-align: inherit;
+  font-weight: 600;
+}
+
+// 폼 요소
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+}
+
+input,
+textarea,
+select {
+  &[type='text'],
+  &[type='email'],
+  &[type='password'],
+  &[type='number'],
+  &[type='search'],
+  &[type='tel'],
+  &[type='url'] {
+    appearance: none;
+  }
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+textarea {
+  resize: vertical;
+}
+
+// 기타 요소
+hr {
+  margin: $cs-spacing-lg 0;
+  color: $cs-border-color;
+  background-color: currentColor;
+  border: 0;
+  opacity: 0.25;
+  height: 1px;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: $cs-font-family-base;
+  font-size: 1em;
+}
+
+pre {
+  margin-top: 0;
+  margin-bottom: $cs-spacing-md;
+  overflow: auto;
+  -ms-overflow-style: scrollbar;
+}

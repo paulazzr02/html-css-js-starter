@@ -1,0 +1,13 @@
+// ========================================
+// Material Icons
+// @description Google Material Icons 라이브러리
+// @license Apache-2.0 (무료 사용 가능)
+// ========================================
+
+// Material Icons 폰트 경로 설정
+// 빌드 시 폰트 파일이 dist/assets/fonts/material-icons/로 복사되므로
+// CSS에서 /assets/fonts/material-icons/ 경로로 참조합니다.
+// Material Icons는 @import를 사용하므로, 변수를 먼저 정의해야 합니다.
+$material-icons-font-path: '/assets/fonts/material-icons/' !default;
+
+@import 'material-icons/iconfont/material-icons';

@@ -1,0 +1,35 @@
+// ========================================
+// 유틸리티 클래스
+// @description 프로젝트 전역에서 사용되는 유틸리티 클래스
+// ========================================
+
+@use '../abstracts/variables' as *;
+@forward '../abstracts/variables';
+
+// 유틸리티 모듈 import
+@use 'animations'; // 범용 애니메이션 (@keyframes)
+@use 'accessibility'; // 사용 중: u__sr-only, u__skip-link
+@use 'icon'; // 사용 중: u__icon
+
+// 사용하지 않는 유틸리티 (성능 최적화를 위해 주석 처리)
+// @use 'borders';
+// @use 'clearfix';
+// @use 'colors';
+// @use 'display';
+// @use 'flex';
+// @use 'float';
+// @use 'interactions';
+// @use 'link';
+// @use 'opacity';
+// @use 'overflow';
+// @use 'position';
+// @use 'print';
+// @use 'ratio';
+// @use 'responsive';
+// @use 'shadow';
+// @use 'sizing';
+// @use 'spacing';
+// @use 'text';
+// @use 'vertical-align';
+// @use 'visually';
+

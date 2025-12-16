@@ -1,0 +1,68 @@
+// ========================================
+// Ratio 유틸리티 클래스
+// @group utilities
+// @description 비율을 유지하면서 반응형으로 크기를 조절하는 유틸리티 클래스들
+//
+// 사용법:
+// <div class="u__ratio u__ratio--16x9">
+//   <img src="image.jpg" alt="Image">
+// </div>
+//
+// 주요 클래스:
+// - u__ratio: 기본 비율 컨테이너
+// - u__ratio--1x1: 정사각형 (1:1)
+// - u__ratio--4x3: 표준 화면 (4:3)
+// - u__ratio--16x9: 와이드스크린 (16:9)
+// - u__ratio--3x4: 세로형 (3:4)
+// - u__ratio--9x16: 모바일 세로 (9:16)
+// - u__ratio--2x3: 세로형 (2:3)
+// - u__ratio--21x9: 시네마스코프 (21:9)
+// ========================================
+
+@use 'sass:math';
+// 비율 맵 (width:height)
+$ratio-map: (
+  1x1: 1,
+  4x3: 0.75,
+  3x2: 0.666666667,
+  16x9: 0.5625,
+  21x9: 0.428571429,
+  2x1: 0.5,
+  3x4: 1.333333333,
+  9x16: 1.777777778,
+  2x3: 1.5,
+);
+
+// 유틸리티 블록 (Block)
+.u {
+  &__ratio {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+
+    &::before {
+      display: block;
+      padding-top: 56.25%; // 기본 16:9 비율
+      content: '';
+    }
+
+    > * {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    // 비율 변형 생성
+    @each $key, $value in $ratio-map {
+      &--#{$key} {
+        &::before {
+          padding-top: math.percentage($value);
+        }
+      }
+    }
+  }
+}

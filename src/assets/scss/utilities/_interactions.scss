@@ -1,0 +1,124 @@
+// ========================================
+// Interactions 유틸리티 클래스
+// @group utilities
+// @description 사용자 인터랙션 관련 유틸리티 클래스들
+//
+// 사용법:
+// <button class="u__cursor--pointer u__transition--fast u__pointer--auto u__select--none">
+//   인터랙티브 버튼
+// </button>
+//
+// 주요 클래스:
+// - u__cursor--auto: cursor: auto
+// - u__cursor--default: cursor: default
+// - u__cursor--pointer: cursor: pointer
+// - u__cursor--wait: cursor: wait
+// - u__cursor--text: cursor: text
+// - u__cursor--move: cursor: move
+// - u__cursor--help: cursor: help
+// - u__cursor--not-allowed: cursor: not-allowed
+// - u__cursor--grab: cursor: grab
+// - u__cursor--grabbing: cursor: grabbing
+// - u__transition--none: transition: none
+// - u__transition--fast: transition: all 0.15s ease
+// - u__transition--base: transition: all 0.3s ease
+// - u__transition--slow: transition: all 0.5s ease
+// - u__transform--none: transform: none
+// - u__transform--scale--sm: transform: scale(0.95)
+// - u__transform--scale--lg: transform: scale(1.05)
+// - u__transform--rotate--90: transform: rotate(90deg)
+// - u__transform--rotate--180: transform: rotate(180deg)
+// - u__transform--rotate--270: transform: rotate(270deg)
+// - u__pointer--auto: pointer-events: auto
+// - u__pointer--none: pointer-events: none
+// - u__select--auto: user-select: auto
+// - u__select--none: user-select: none
+// - u__select--text: user-select: text
+// - u__select--all: user-select: all
+// - u__select--contain: user-select: contain
+// ========================================
+
+// Cursor 맵
+$cursor-map: (
+  auto: auto,
+  default: default,
+  pointer: pointer,
+  wait: wait,
+  text: text,
+  move: move,
+  help: help,
+  'not-allowed': not-allowed,
+  grab: grab,
+  grabbing: grabbing,
+);
+
+// Transition 맵
+$transition-map: (
+  none: none,
+  fast: all 0.15s ease,
+  base: all 0.3s ease,
+  slow: all 0.5s ease,
+);
+
+// Transform 맵
+$transform-map: (
+  none: none,
+  'scale-sm': scale(0.95),
+  'scale-lg': scale(1.05),
+  'rotate-90': rotate(90deg),
+  'rotate-180': rotate(180deg),
+  'rotate-270': rotate(270deg),
+);
+
+// Pointer events 맵
+$pointer-events-map: (
+  auto: auto,
+  none: none,
+);
+
+// User select 맵
+$user-select-map: (
+  auto: auto,
+  none: none,
+  text: text,
+  all: all,
+  contain: contain,
+);
+
+// 헬퍼 블록 (Block)
+.u {
+  // Cursor 헬퍼 생성
+  @each $key, $value in $cursor-map {
+    &__cursor--#{$key} {
+      cursor: #{$value} !important;
+    }
+  }
+
+  // Transition 헬퍼 생성
+  @each $key, $value in $transition-map {
+    &__transition--#{$key} {
+      transition: #{$value} !important;
+    }
+  }
+
+  // Transform 헬퍼 생성
+  @each $key, $value in $transform-map {
+    &__transform--#{$key} {
+      transform: #{$value} !important;
+    }
+  }
+
+  // Pointer events 헬퍼 생성
+  @each $key, $value in $pointer-events-map {
+    &__pointer--#{$key} {
+      pointer-events: #{$value} !important;
+    }
+  }
+
+  // User select 헬퍼 생성
+  @each $key, $value in $user-select-map {
+    &__select--#{$key} {
+      user-select: #{$value} !important;
+    }
+  }
+}

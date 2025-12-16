@@ -1,0 +1,159 @@
+// ========================================
+// Responsive 유틸리티 클래스
+// @group utilities
+// @description 반응형 브레이크포인트별 유틸리티 클래스들
+//
+// 사용법:
+// <div class="u__d--sm--none u__d--md--block u__d--lg--flex">
+//   Responsive Content
+// </div>
+//
+// 주요 클래스:
+// - u__d--sm--none: sm 이상에서 display: none
+// - u__d--md--block: md 이상에서 display: block
+// - u__d--lg--flex: lg 이상에서 display: flex
+// - u__text--sm--center: sm 이상에서 text-align: center
+// - u__text--md--start: md 이상에서 text-align: start
+// - u__text--lg--end: lg 이상에서 text-align: end
+// ========================================
+
+@use '../abstracts/variables' as *;
+
+// 반응형 브레이크포인트 맵
+// Note: 미디어 쿼리에서 사용하므로 Sass 변수 유지
+$breakpoint-map: (
+  sm: $cs-breakpoint-sm,
+  md: $cs-breakpoint-md,
+  lg: $cs-breakpoint-lg,
+  xl: $cs-breakpoint-xl,
+  xxl: $cs-breakpoint-xxl,
+);
+
+// 디스플레이 값 맵
+$display-map: (
+  none: none,
+  block: block,
+  inline: inline,
+  'inline-block': inline-block,
+  flex: flex,
+  'inline-flex': inline-flex,
+  grid: grid,
+  'inline-grid': inline-grid,
+);
+
+// 텍스트 정렬 값 맵
+$text-align-map: (
+  start: left,
+  end: right,
+  center: center,
+  justify: justify,
+);
+
+// 유틸리티 블록 (Block)
+.u {
+  // 반응형 디스플레이 유틸리티
+  &__d {
+    @each $breakpoint-key, $breakpoint-value in $breakpoint-map {
+      @each $display-key, $display-value in $display-map {
+        &--#{$breakpoint-key}--#{$display-key} {
+          @media (min-width: $breakpoint-value) {
+            display: #{$display-value} !important;
+          }
+        }
+      }
+    }
+  }
+
+  // 반응형 텍스트 정렬 유틸리티
+  &__text {
+    @each $breakpoint-key, $breakpoint-value in $breakpoint-map {
+      @each $align-key, $align-value in $text-align-map {
+        &--#{$breakpoint-key}--#{$align-key} {
+          @media (min-width: $breakpoint-value) {
+            text-align: #{$align-value} !important;
+          }
+        }
+      }
+    }
+  }
+
+  // 반응형 플렉스 방향 유틸리티
+  &__flex {
+    @each $breakpoint-key, $breakpoint-value in $breakpoint-map {
+      &--#{$breakpoint-key}--row {
+        @media (min-width: $breakpoint-value) {
+          flex-direction: row !important;
+        }
+      }
+
+      &--#{$breakpoint-key}--column {
+        @media (min-width: $breakpoint-value) {
+          flex-direction: column !important;
+        }
+      }
+    }
+  }
+
+  // 반응형 플렉스 정렬 유틸리티
+  &__justify-content {
+    @each $breakpoint-key, $breakpoint-value in $breakpoint-map {
+      &--#{$breakpoint-key}--start {
+        @media (min-width: $breakpoint-value) {
+          justify-content: flex-start !important;
+        }
+      }
+
+      &--#{$breakpoint-key}--center {
+        @media (min-width: $breakpoint-value) {
+          justify-content: center !important;
+        }
+      }
+
+      &--#{$breakpoint-key}--end {
+        @media (min-width: $breakpoint-value) {
+          justify-content: flex-end !important;
+        }
+      }
+
+      &--#{$breakpoint-key}--between {
+        @media (min-width: $breakpoint-value) {
+          justify-content: space-between !important;
+        }
+      }
+
+      &--#{$breakpoint-key}--around {
+        @media (min-width: $breakpoint-value) {
+          justify-content: space-around !important;
+        }
+      }
+    }
+  }
+
+  &__align-items {
+    @each $breakpoint-key, $breakpoint-value in $breakpoint-map {
+      &--#{$breakpoint-key}--start {
+        @media (min-width: $breakpoint-value) {
+          align-items: flex-start !important;
+        }
+      }
+
+      &--#{$breakpoint-key}--center {
+        @media (min-width: $breakpoint-value) {
+          align-items: center !important;
+        }
+      }
+
+      &--#{$breakpoint-key}--end {
+        @media (min-width: $breakpoint-value) {
+          align-items: flex-end !important;
+        }
+      }
+
+      &--#{$breakpoint-key}--stretch {
+        @media (min-width: $breakpoint-value) {
+          align-items: stretch !important;
+        }
+      }
+    }
+  }
+}

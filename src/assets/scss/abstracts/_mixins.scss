@@ -1,0 +1,15 @@
+// ========================================
+// 재사용 가능한 믹스인
+// @description 프로젝트 전역에서 사용하는 Sass 믹스인
+// ========================================
+
+// Fullpage Shell 믹스인 (layout/_fullpage.scss에서 사용)
+@mixin fullpage-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// 필요한 다른 믹스인들을 여기에 추가하세요

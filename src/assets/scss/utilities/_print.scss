@@ -1,0 +1,91 @@
+// ========================================
+// Print 유틸리티 클래스
+// @group utilities
+// @description Print 유틸리티 클래스를 사용하여 인쇄 시 최적화를 위한 스타일을 적용합니다.
+//
+// 사용법:
+// <div class="u__print--hidden">Print Hidden</div>
+// <div class="u__print--visible">Print Visible</div>
+// <div class="u__print--no-color">Print No Color</div>
+// <div class="u__print--break-inside-avoid">Print Break Inside Avoid</div>
+// <div class="u__print--break-after-avoid">Print Break After Avoid</div>
+//
+// 주요 클래스:
+// - u__print--hidden: 인쇄 시 숨김
+// - u__print--visible: 인쇄 시 표시
+// - u__print--no-color: 인쇄 시 색상 제거
+// - u__print--break-inside-avoid: 인쇄 시 내부 브레이크 방지
+// - u__print--break-after-avoid: 인쇄 시 후 브레이크 방지
+// ========================================
+
+// 유틸리티 블록 (Block)
+.u {
+  &__print {
+    // 인쇄 시 숨김
+    &--hidden {
+      @media print {
+        display: none !important;
+      }
+    }
+
+    // 인쇄 시 표시
+    &--visible {
+      @media print {
+        display: block !important;
+      }
+    }
+
+    // 인쇄 시 색상 제거
+    &--no-color {
+      @media print {
+        color: black !important;
+        background-color: white !important;
+      }
+    }
+
+    // 인쇄 시 브레이크 방지
+    &--break-inside-avoid {
+      @media print {
+        break-inside: avoid !important;
+      }
+    }
+
+    &--break-after-avoid {
+      @media print {
+        break-after: avoid !important;
+      }
+    }
+
+    &--break-before-avoid {
+      @media print {
+        break-before: avoid !important;
+      }
+    }
+
+    // 인쇄 시 페이지 브레이크
+    &--page-break-before {
+      @media print {
+        page-break-before: always !important;
+      }
+    }
+
+    &--page-break-after {
+      @media print {
+        page-break-after: always !important;
+      }
+    }
+
+    // 인쇄 시 여백
+    &--margin-none {
+      @media print {
+        margin: 0 !important;
+      }
+    }
+
+    &--padding-none {
+      @media print {
+        padding: 0 !important;
+      }
+    }
+  }
+}

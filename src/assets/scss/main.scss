@@ -1,0 +1,36 @@
+// ========================================
+// Main Stylesheet (진입점)
+// @description 모든 스타일을 통합하는 메인 진입점
+// 빌드 결과: dist/css/main.css
+// ========================================
+
+// 1. Abstracts (도구들) - CSS로 컴파일되지 않는 도구들
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+@use 'abstracts/functions';
+@use 'abstracts/placeholders';
+
+// 2. Vendors (외부 라이브러리)
+@use 'vendors/krds-tokens';
+@use 'vendors/pretendard';
+@use 'vendors/material-icons';
+
+// 3. Base (프로젝트의 Core)
+@use 'base/reboot';
+@use 'base/base';
+@use 'base/typography';
+
+// 4. Layout
+@use 'layout/header';
+// @use 'layout/footer';
+// @use 'layout/sidebar';
+// @use 'layout/grid';
+
+// 5. Components (독립적인 UI 모듈)
+@use 'components/components';
+
+// 6. Pages (페이지별 특화 스타일)
+@use 'pages/pages';
+
+// 7. Utilities (헬퍼 클래스)
+@use 'utilities/utilities';

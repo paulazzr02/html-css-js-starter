@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="@@language">
+  <head>
+    @@include('../includes/_head.html', { page_main: false, page_name: "layout-three-column",
+    page_title: "Three Column Layout", page_description: "세 컬럼 레이아웃 예시", page_url:
+    "/html/layout-three-column.html" })
+  </head>
+  <body>
+    @@include('../includes/_skip-link.html')
+    <div id="root" class="layout__root layout__page">
+      @@include('../includes/_header.html', { page_name: "layout-three-column" })
+
+      <!-- 본문 영역 -->
+      <main class="layout__content" id="main" role="main">
+        <div class="layout__content__container layout-three-column">
+          <aside
+            class="layout-three-column__sidebar layout-three-column__sidebar--left"
+            role="complementary"
+          >
+            <nav class="layout-three-column__sidebar-nav">
+              <h2>좌측 사이드바</h2>
+              <ul>
+                <li><a href="#">메뉴 1</a></li>
+                <li><a href="#">메뉴 2</a></li>
+                <li><a href="#">메뉴 3</a></li>
+                <li><a href="#">메뉴 4</a></li>
+              </ul>
+            </nav>
+          </aside>
+
+          <div class="layout-three-column__main">
+            <h1>Three Column Layout</h1>
+            <p class="lead">
+              세 컬럼 레이아웃은 좌측 사이드바, 메인 콘텐츠, 우측 사이드바로 구성됩니다.
+            </p>
+
+            <section class="layout-three-column__section">
+              <h2>메인 콘텐츠</h2>
+              <p>
+                이 레이아웃은 뉴스 사이트, 포털 사이트, 대시보드 등에서 많이 사용됩니다. 좌측에는 주
+                네비게이션, 우측에는 관련 콘텐츠나 광고를 배치합니다.
+              </p>
+              <p>세 컬럼 레이아웃의 특징:</p>
+              <ul>
+                <li>좌측: 주 네비게이션 메뉴</li>
+                <li>중앙: 주요 콘텐츠</li>
+                <li>우측: 부가 정보, 위젯, 광고</li>
+              </ul>
+            </section>
+
+            <section class="layout-three-column__section">
+              <h2>콘텐츠 섹션 2</h2>
+              <p>
+                메인 콘텐츠 영역은 중앙에 배치되어 시각적 균형을 유지합니다. 좌우 사이드바는
+                보조적인 역할을 하며, 메인 콘텐츠가 시각적 중심이 됩니다.
+              </p>
+            </section>
+
+            <section class="layout-three-column__section">
+              <h2>콘텐츠 섹션 3</h2>
+              <p>
+                반응형 디자인에서는 작은 화면에서 사이드바들이 접히거나 하단으로 이동하여 단일 컬럼
+                레이아웃으로 전환됩니다.
+              </p>
+            </section>
+          </div>
+
+          <aside
+            class="layout-three-column__sidebar layout-three-column__sidebar--right"
+            role="complementary"
+          >
+            <div class="layout-three-column__sidebar-widget">
+              <h3>관련 기사</h3>
+              <ul>
+                <li><a href="#">기사 제목 1</a></li>
+                <li><a href="#">기사 제목 2</a></li>
+                <li><a href="#">기사 제목 3</a></li>
+              </ul>
+            </div>
+            <div class="layout-three-column__sidebar-widget">
+              <h3>인기 콘텐츠</h3>
+              <ul>
+                <li><a href="#">인기 항목 1</a></li>
+                <li><a href="#">인기 항목 2</a></li>
+                <li><a href="#">인기 항목 3</a></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+
+        <div class="layout-three-column__footer">
+          <p><a href="/index.html">← 시작 페이지로 돌아가기</a></p>
+        </div>
+      </main>
+    </div>
+
+    @@include('../includes/_script.html')
+  </body>
+</html>

@@ -1,0 +1,124 @@
+// ========================================
+// Spacing 유틸리티 클래스
+// @group utilities
+// @description Margin, Padding 관련 유틸리티 클래스들
+//
+// 사용법:
+// <div class="u__m--3 u__p--2 u__mt--1">
+//   Spaced Content
+// </div>
+//
+// 주요 클래스:
+// - u__m--0: margin: 0
+// - u__m--1: margin: 0.25rem
+// - u__m--2: margin: 0.5rem
+// - u__m--3: margin: 1rem
+// - u__p--0: padding: 0
+// - u__p--1: padding: 0.25rem
+// - u__mt--1: margin-top: 0.25rem
+// - u__pe--2: margin-right: 0.5rem (end)
+// - u__ps--3: margin-left: 1rem (start)
+// ========================================
+
+// 간격 값 맵 (KRDS 디자인 토큰 사용, fallback으로 프로젝트 변수)
+// KRDS number 토큰이 프로젝트 spacing과 정확히 일치하지 않으므로 fallback 사용
+$spacing-map: (
+  0: 0,
+  1: var(--krds-number-1, var(--cs-spacing-xs)),
+  2: var(--krds-number-2, var(--cs-spacing-sm)),
+  3: var(--krds-number-6, var(--cs-spacing-md)),
+  4: var(--krds-number-7, var(--cs-spacing-lg)),
+  5: var(--krds-number-9, var(--cs-spacing-xl)),
+);
+
+// 방향 맵 (Bootstrap 5 방향 정책 적용)
+$direction-map: (
+  t: top,
+  e: right,
+  // end
+  b: bottom,
+  s: left, // start
+);
+
+// 유틸리티 블록 (Block)
+.u {
+  // Margin 유틸리티
+  &__m {
+    @each $key, $value in $spacing-map {
+      &--#{$key} {
+        margin: #{$value} !important;
+      }
+    }
+
+    // 방향별 margin
+    @each $dir-key, $dir-value in $direction-map {
+      &#{$dir-key} {
+        @each $key, $value in $spacing-map {
+          &--#{$key} {
+            margin-#{$dir-value}: #{$value} !important;
+          }
+        }
+      }
+    }
+
+    // X축 (좌우) margin
+    &x {
+      @each $key, $value in $spacing-map {
+        &--#{$key} {
+          margin-left: #{$value} !important;
+          margin-right: #{$value} !important;
+        }
+      }
+    }
+
+    // Y축 (상하) margin
+    &y {
+      @each $key, $value in $spacing-map {
+        &--#{$key} {
+          margin-top: #{$value} !important;
+          margin-bottom: #{$value} !important;
+        }
+      }
+    }
+  }
+
+  // Padding 유틸리티
+  &__p {
+    @each $key, $value in $spacing-map {
+      &--#{$key} {
+        padding: #{$value} !important;
+      }
+    }
+
+    // 방향별 padding
+    @each $dir-key, $dir-value in $direction-map {
+      &#{$dir-key} {
+        @each $key, $value in $spacing-map {
+          &--#{$key} {
+            padding-#{$dir-value}: #{$value} !important;
+          }
+        }
+      }
+    }
+
+    // X축 (좌우) padding
+    &x {
+      @each $key, $value in $spacing-map {
+        &--#{$key} {
+          padding-left: #{$value} !important;
+          padding-right: #{$value} !important;
+        }
+      }
+    }
+
+    // Y축 (상하) padding
+    &y {
+      @each $key, $value in $spacing-map {
+        &--#{$key} {
+          padding-top: #{$value} !important;
+          padding-bottom: #{$value} !important;
+        }
+      }
+    }
+  }
+}
