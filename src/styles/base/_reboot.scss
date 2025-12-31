@@ -1,0 +1,35 @@
+// ========================================
+// Reboot
+// @description 브라우저 기본 스타일 초기화
+// ========================================
+
+@use 'abstracts/variables' as *;
+
+// CSS 변수 선언 (:root)
+// $css-variables-map의 모든 변수를 CSS 변수로 변환
+:root {
+  @each $category, $vars in $css-variables-map {
+    @each $key, $value in $vars {
+      --#{$key}: #{$value};
+    }
+  }
+}
+
+// box-sizing 통일
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// 기본 margin/padding 제거
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// html 기본 보정
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}

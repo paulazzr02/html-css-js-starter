@@ -1,0 +1,81 @@
+// ========================================
+// Spacing 유틸리티 클래스
+// @group utilities
+// @description Margin, Padding, Gap 여백 제어 (반응형 포함, BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// KRDS 간격 토큰 매핑은 config에서 가져옴 ($spacing-map 재사용)
+// 방향 정의는 config에서 가져옴 ($sides-map 재사용)
+
+@mixin render-spacing($type, $prefix, $s-key, $side, $v-key, $val, $bp-key: '') {
+    // 클래스명 생성 로직 (예: .u-mt-5 또는 .u-mt-md-5)
+    $selector: if($bp-key == '', '.u-#{$prefix}#{$s-key}-#{$v-key}', '.u-#{$prefix}#{$s-key}-#{$bp-key}-#{$v-key}');
+
+    #{$selector} {
+        @if $s-key == t or $s-key == b or $s-key == s or $s-key == e {
+            $prop: if($s-key == s, left, if($s-key == e, right, $side));
+            #{$type}-#{$prop}: #{$val} !important;
+        } @else if $s-key == x {
+            #{$type}-left: #{$val} !important;
+            #{$type}-right: #{$val} !important;
+        } @else if $s-key == y {
+            #{$type}-top: #{$val} !important;
+            #{$type}-bottom: #{$val} !important;
+        } @else if $s-key == a {
+            #{$type}: #{$val} !important;
+        }
+    }
+}
+
+// [Step 1] 기본 여백 (모바일 우선)
+@each $type-name, $type-prefix in (margin: m, padding: p) {
+    @each $s-key, $side in $sides-map {
+        @each $v-key, $val in $spacing-map {
+            @include render-spacing($type-name, $type-prefix, $s-key, $side, $v-key, $val);
+        }
+    }
+}
+
+// $breakpoint-map은 config에서 import됨
+@each $bp-key, $bp-val in $breakpoint-map {
+    @if $bp-val != 0 {
+        @media (min-width: $bp-val) {
+            @each $type-name, $type-prefix in (margin: m, padding: p) {
+                @each $s-key, $side in $sides-map {
+                    @each $v-key, $val in $spacing-map {
+                        @include render-spacing($type-name, $type-prefix, $s-key, $side, $v-key, $val, $bp-key);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 보정 레이아웃을 위한 음수 값 (1~5단계만 제공)
+@for $i from 1 through 5 {
+    .u-m-n#{$i} {
+        margin: calc(var(--krds-spacing-#{$i}) * -1) !important;
+    }
+    .u-mt-n#{$i} {
+        margin-top: calc(var(--krds-spacing-#{$i}) * -1) !important;
+    }
+    .u-mb-n#{$i} {
+        margin-bottom: calc(var(--krds-spacing-#{$i}) * -1) !important;
+    }
+    .u-ms-n#{$i} {
+        margin-left: calc(var(--krds-spacing-#{$i}) * -1) !important;
+    }
+    .u-me-n#{$i} {
+        margin-right: calc(var(--krds-spacing-#{$i}) * -1) !important;
+    }
+}
+
+// [Gap] .u-gap-0 ~ 10
+// 범용 gap 유틸리티 (flex, grid, stacks 등 모든 레이아웃에서 사용 가능)
+@each $key, $value in $spacing-map {
+    .u-gap-#{$key} {
+        gap: #{$value} !important;
+    }
+}

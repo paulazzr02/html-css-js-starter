@@ -1,0 +1,82 @@
+// ========================================
+// Position 유틸리티 클래스
+// @group utilities
+// @description 요소의 배치 및 Sticky 고정 제어 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $position-map과 $position-values-map은 config에서 가져옴 (재사용)
+
+// [Position Type] .u-pos-static ~ .u-pos-sticky
+.u-pos {
+    @each $key, $val in $position-map {
+        &-#{$key} {
+            position: #{$val} !important;
+        }
+    }
+}
+
+// [Edge Positions] .u-top-0, .u-start-50 등
+// t, b, s, e만 사용 (x, y, a는 제외)
+@each $edge-key, $edge-val in $sides-map {
+    @if $edge-key == t or $edge-key == b or $edge-key == s or $edge-key == e {
+        $property: if($edge-key == s, left, if($edge-key == e, right, $edge-val));
+        $edge-name: if($edge-key == s, start, if($edge-key == e, end, $edge-val));
+
+        .u-#{$edge-name} {
+            @each $key, $val in $position-values-map {
+                &-#{$key} {
+                    #{$property}: #{$val} !important;
+                }
+            }
+        }
+    }
+}
+
+.u-sticky-top {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: map-get($zindex-map, sticky); // 상단 고정 요소의 일반적인 레이어 순위
+}
+
+.u-sticky-bottom {
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: map-get($zindex-map, sticky);
+}
+
+.u-fixed-top {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0;
+    left: 0;
+    z-index: map-get($zindex-map, fixed);
+}
+
+.u-fixed-bottom {
+    position: fixed !important;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: map-get($zindex-map, fixed);
+}
+
+// absolute 배치를 정중앙으로 보정하는 헬퍼
+
+.u-translate-middle {
+    transform: translate(-50%, -50%) !important;
+
+    &-x {
+        transform: translateX(-50%) !important;
+    }
+    &-y {
+        transform: translateY(-50%) !important;
+    }
+}
+
+@for $i from 0 through 5 {
+    .u-zindex-#{$i} {
+        z-index: #{$i} !important;
+    }
+}

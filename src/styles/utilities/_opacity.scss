@@ -1,0 +1,42 @@
+// ========================================
+// Opacity 유틸리티 클래스
+// @group utilities
+// @description 요소의 투명도(Opacity)를 제어하는 유틸리티 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $opacity-map은 config에서 가져옴 (재사용)
+
+// .u-opacity-0, .u-opacity-25, .u-opacity-50, .u-opacity-75, .u-opacity-100 생성
+@each $key, $value in $opacity-map {
+    .u-opacity-#{$key} {
+        opacity: #{$value} !important;
+    }
+}
+
+// 추가 opacity 유틸리티 (visually에서 이동)
+.u-opaque {
+    opacity: 1 !important;
+}
+.u-transparent {
+    opacity: 0 !important;
+}
+
+.u-opacity-hover {
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+        opacity: 0.7 !important;
+    }
+
+    &-50:hover {
+        opacity: 0.5 !important;
+    }
+    &-70:hover {
+        opacity: 0.7 !important;
+    }
+    &-100:hover {
+        opacity: 1 !important;
+    }
+}

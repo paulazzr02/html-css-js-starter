@@ -1,0 +1,48 @@
+// ========================================
+// Accessibility 유틸리티 클래스
+// @group utilities
+// @description 접근성 개선을 위한 유틸리티 클래스들
+// ========================================
+
+@use 'abstracts/config' as *;
+
+.u-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+
+  &-focusable:active,
+  &-focusable:focus {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
+  }
+}
+
+.u-skip-link {
+  position: absolute;
+  top: 0;
+  left: var(--krds-number-6);
+  padding: var(--krds-number-2) var(--krds-number-6);
+  text-decoration: none;
+  background-color: var(--krds-color-light-primary-50);
+  color: var(--krds-color-light-gray-0);
+  z-index: 1000;
+  transform: translateY(-100%);
+  transition: transform 0.2s ease-in-out;
+
+  &:focus {
+    transform: translateY(0);
+    outline: 2px solid var(--krds-color-light-gray-0);
+    outline-offset: 2px;
+  }
+}

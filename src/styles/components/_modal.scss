@@ -1,0 +1,218 @@
+// ========================================
+// Modal 컴포넌트 스타일
+// @group components
+// @description 모달/다이얼로그 컴포넌트 (BEM 규칙 준수)
+// ========================================
+
+@use 'sass:color';
+@use 'abstracts/variables' as *;
+
+// ----------------------------------------
+// Modal Block
+// Block: c-modal
+// ----------------------------------------
+.c-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none; // 기본 상태: 숨김
+  align-items: center;
+  justify-content: center;
+  background-color: rgba($cs-color-black, 0.5);
+  z-index: $cs-zindex-modal;
+  animation: fadeIn $cs-transition-base;
+
+  // Modifier: --show (모달 표시)
+  &--show {
+    display: flex;
+  }
+
+  // ----------------------------------------
+  // Modal Content Element
+  // Element: c-modal__content
+  // ----------------------------------------
+  &__content {
+    position: relative;
+    width: 90%;
+    max-width: 600px; // 기본 사이즈
+    max-height: 90vh;
+    background-color: $cs-color-white;
+    border-radius: $cs-border-radius-lg;
+    box-shadow: $cs-box-shadow-lg;
+    overflow: hidden;
+    animation: slideUp $cs-transition-base;
+    display: flex;
+    flex-direction: column;
+
+    // Size Modifiers
+    &--sm {
+      max-width: 400px;
+    }
+
+    &--lg {
+      max-width: 800px;
+    }
+
+    &--xl {
+      max-width: 1200px;
+    }
+  }
+
+  // ----------------------------------------
+  // Modal Header Element
+  // Element: c-modal__header
+  // ----------------------------------------
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $cs-spacing-xl;
+    flex-shrink: 0;
+  }
+
+  // ----------------------------------------
+  // Modal Title Element
+  // Element: c-modal__title
+  // ----------------------------------------
+  &__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $cs-color-text-primary;
+    line-height: 1.5;
+  }
+
+  // ----------------------------------------
+  // Modal Close Button Element
+  // Element: c-modal__close
+  // ----------------------------------------
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $cs-color-text-secondary;
+    border-radius: $cs-border-radius-sm;
+    transition: all $cs-transition-fast;
+    flex-shrink: 0;
+
+    &:hover {
+      background-color: $cs-color-background-secondary;
+      color: $cs-color-text-primary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $cs-color-primary;
+      outline-offset: 2px;
+    }
+
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  // ----------------------------------------
+  // Modal Close Icon Element
+  // Element: c-modal__close-icon
+  // ----------------------------------------
+  &__close-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  // ----------------------------------------
+  // Modal Body Element
+  // Element: c-modal__body
+  // ----------------------------------------
+  &__body {
+    padding: $cs-spacing-xl;
+    max-height: calc(90vh - 140px);
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+  }
+
+  // ----------------------------------------
+  // Modal Footer Element
+  // Element: c-modal__footer
+  // ----------------------------------------
+  &__footer {
+    display: flex;
+    flex-direction: row; // 수평 배치
+    align-items: center; // 수직 중앙 정렬
+    justify-content: center; // 기본값: 중앙 정렬
+    gap: $cs-spacing-sm;
+    padding: $cs-spacing-lg;
+    flex-shrink: 0;
+    flex-wrap: nowrap; // 줄바꿈 방지
+
+    // Footer Alignment Modifiers
+    &--start {
+      justify-content: flex-start; // 왼쪽 정렬
+    }
+
+    &--end {
+      justify-content: flex-end; // 오른쪽 정렬
+    }
+
+    &--space-between {
+      justify-content: space-between; // 양쪽 정렬
+    }
+  }
+
+  // ----------------------------------------
+  // Modal Button Element (Footer 내부 버튼용)
+  // Element: c-modal__button
+  // ----------------------------------------
+  &__button {
+    padding: $cs-spacing-sm $cs-spacing-xl;
+    border: 1px solid $cs-border-color;
+    border-radius: $cs-border-radius;
+    font-size: $cs-font-size-base;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all $cs-transition-fast;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    // Button Modifiers
+    &--primary {
+      background-color: $cs-color-primary;
+      color: $cs-color-white;
+      border-color: $cs-color-primary;
+
+      &:hover {
+        background-color: color.adjust($cs-color-primary, $lightness: -5%);
+        border-color: color.adjust($cs-color-primary, $lightness: -5%);
+      }
+    }
+
+    &--secondary {
+      background-color: $cs-color-white;
+      color: $cs-color-text-primary;
+      border-color: $cs-border-color;
+
+      &:hover {
+        background-color: $cs-color-background-secondary;
+        border-color: $cs-color-primary;
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+// ========================================
+// Icon 컴포넌트 스타일
+// @group components
+// @description 아이콘 크기, 색상 및 애니메이션 제어 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+$icon-size-map: (
+  xs: var(--krds-number-3),
+  sm: var(--krds-number-4),
+  md: var(--krds-number-6),
+  lg: var(--krds-number-8),
+  xl: var(--krds-number-10),
+);
+
+$icon-color-map: (
+  primary: var(--krds-color-light-primary-50),
+  secondary: var(--krds-color-light-secondary-50),
+  success: var(--krds-color-light-success-50),
+  danger: var(--krds-color-light-danger-50),
+  warning: var(--krds-color-light-warning-50),
+  info: var(--krds-color-light-info-50),
+  white: var(--krds-color-light-gray-0),
+  black: #000,
+);
+
+// Icon Block (BEM 규칙 준수, c- 접두사 사용)
+.c-icon {
+  display: inline-block;
+  width: var(--krds-number-5); // 기본값 (20px 내외)
+  height: var(--krds-number-5);
+  // fallback 색상: 부모 색상이 없을 때 기본 색상 사용
+  // 색상 모디파이어 클래스(--primary, --black 등)가 있으면 !important로 덮어씀
+  color: var(--krds-color-light-gray-90, #212529); // 기본 텍스트 색상 (fallback)
+  background-color: currentColor;
+  mask-image: var(--icon-url); // CSS 변수를 통해 외부에서 경로 주입
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  vertical-align: middle;
+
+  // [Size Modifiers] .icon--xs ~ .icon--xl
+  @each $key, $val in $icon-size-map {
+    &--#{$key} {
+      width: #{$val} !important;
+      height: #{$val} !important;
+    }
+  }
+
+  // [Color Modifiers] .icon--primary, .icon--danger 등
+  @each $key, $val in $icon-color-map {
+    &--#{'' + $key} {
+      color: #{$val} !important;
+    }
+  }
+
+  // [Animation Modifier] .c-icon--spin
+  &--spin {
+    animation: c-icon-spin 1s linear infinite !important;
+  }
+
+  // [Transform Modifiers] .icon--flip-v, .icon--flip-h
+  &--flip-v {
+    transform: scaleY(-1);
+  }
+
+  &--flip-h {
+    transform: scaleX(-1);
+  }
+}
+
+@keyframes c-icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

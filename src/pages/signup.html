@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="@@language">
+  <head>
+    @@include('../templates/_head.html', { page_main: false, page_name: "signup", page_title:
+    "회원가입", page_description: "Signup 페이지 예시", page_url: "/html/signup.html" })
+  </head>
+  <body>
+    <div class="layout__root layout__fullpage auth-page">
+      <div class="auth-card">
+        <div class="auth-card__header">
+          <h1>회원가입</h1>
+          <p>계정을 생성하고 통신 모니터링 서비스를 시작하세요.</p>
+        </div>
+
+        <form class="auth-form">
+          <div class="auth-form__field">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" placeholder="홍길동" required />
+          </div>
+          <div class="auth-form__field">
+            <label for="signup-email">이메일</label>
+            <input
+              type="email"
+              id="signup-email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+          <div class="auth-form__field">
+            <label for="signup-password">비밀번호</label>
+            <input
+              type="password"
+              id="signup-password"
+              name="password"
+              placeholder="8자 이상 입력"
+              required
+            />
+          </div>
+          <div class="auth-form__field">
+            <label for="signup-password-confirm">비밀번호 확인</label>
+            <input
+              type="password"
+              id="signup-password-confirm"
+              name="passwordConfirm"
+              placeholder="비밀번호를 다시 입력"
+              required
+            />
+          </div>
+          <div class="auth-form__actions">
+            <button type="submit" class="auth-button">회원가입</button>
+          </div>
+        </form>
+
+        <p class="auth-secondary" style="margin-top: 1rem">
+          이미 계정이 있으신가요? <a href="/html/login.html">로그인</a>
+        </p>
+        <p class="auth-secondary" style="margin-top: 0.25rem">
+          <a href="/index.html">← 시작 페이지로 돌아가기</a>
+        </p>
+      </div>
+    </div>
+
+    @@include('../templates/_script.html')
+  </body>
+</html>

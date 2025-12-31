@@ -1,0 +1,16 @@
+// ========================================
+// Display 유틸리티 클래스
+// @group utilities
+// @description Display 속성 관련 유틸리티 (BEM 기반 단일 하이픈 체계)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $display-map은 config에서 가져옴 (재사용)
+
+// .u-d-none, .u-d-block, .u-d-flex
+@each $key, $value in $display-map {
+    .u-d-#{$key} {
+        display: #{$value} !important;
+    }
+}

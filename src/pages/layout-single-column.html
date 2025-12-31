@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="@@language">
+  <head>
+    @@include('../templates/_head.html', { page_main: false, page_name: "layout-single-column",
+    page_title: "Single Column Layout", page_description: "단일 컬럼 레이아웃 예시", page_url:
+    "/html/layout-single-column.html" })
+  </head>
+  <body>
+    @@include('../templates/_skip-link.html')
+    <div id="root" class="layout__root layout__page">
+      @@include('../templates/_header.html', { page_name: "layout-single-column" })
+
+      <!-- 본문 영역 -->
+      <main class="layout__content" id="main" role="main">
+        <div class="layout__content__container layout-single-column">
+          <div class="layout-single-column__hero">
+            <h1>Single Column Layout</h1>
+            <p class="lead">단일 컬럼 레이아웃은 가장 기본적인 레이아웃 유형입니다.</p>
+          </div>
+
+          <div class="layout-single-column__content">
+            <section class="layout-single-column__section">
+              <h2>섹션 제목 1</h2>
+              <p>
+                이 레이아웃은 블로그, 뉴스 기사, 문서 등 텍스트 중심 콘텐츠에 적합합니다. 가독성을
+                최우선으로 하며, 사용자의 시선을 자연스럽게 아래로 유도합니다.
+              </p>
+              <p>단일 컬럼 레이아웃의 장점은 다음과 같습니다:</p>
+              <ul>
+                <li>가독성 최적화: 긴 텍스트를 읽기 편함</li>
+                <li>반응형 디자인 구현이 간단함</li>
+                <li>모바일 친화적</li>
+                <li>콘텐츠에 집중할 수 있음</li>
+              </ul>
+            </section>
+
+            <section class="layout-single-column__section">
+              <h2>섹션 제목 2</h2>
+              <p>
+                이 레이아웃은 최대 너비를 제한하여 긴 줄의 텍스트로 인한 가독성 저하를 방지합니다.
+                일반적으로 600px ~ 800px 정도의 최대 너비를 사용합니다.
+              </p>
+              <p>
+                콘텐츠는 중앙 정렬되거나 좌측 정렬될 수 있으며, 프로젝트의 특성에 맞게 선택할 수
+                있습니다.
+              </p>
+            </section>
+
+            <section class="layout-single-column__section">
+              <h2>섹션 제목 3</h2>
+              <p>
+                이미지, 비디오, 인용구 등 다양한 콘텐츠 요소를 포함할 수 있습니다. 각 요소는
+                자연스럽게 세로로 배치되어 스크롤을 통해 탐색할 수 있습니다.
+              </p>
+            </section>
+          </div>
+
+          <div class="layout-single-column__footer">
+            <p><a href="/index.html">← 시작 페이지로 돌아가기</a></p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    @@include('../templates/_script.html')
+  </body>
+</html>

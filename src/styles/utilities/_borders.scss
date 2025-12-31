@@ -1,0 +1,91 @@
+// ========================================
+// Borders 유틸리티 클래스
+// @group utilities
+// @description 테두리 두께 및 반경 관련 유틸리티 (Map 기반 자동 생성)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// 테두리 두께 맵은 config에서 가져옴 ($border-width-map 재사용)
+// 테두리 반경 맵은 config에서 가져옴 ($border-radius-map 재사용)
+// 방향/축 매핑은 config의 $sides-map 재사용 (t, b, s, e만 사용)
+// 기본 테두리 색상은 config에서 가져옴 ($border-color-default 재사용)
+
+// [Border Width] .u-border, .u-border-0 ~ 5
+.u-border {
+    // 기본 테두리 설정
+    border: 1px solid #{$border-color-default} !important;
+
+    @each $key, $val in $border-width-map {
+        &-#{$key} {
+            border-width: #{$val} !important;
+        }
+    }
+
+    // 방향별 테두리 (예: .u-border-t)
+    // t, b, s, e만 사용 (x, y, a는 제외)
+    @each $d-key, $d-val in $sides-map {
+        @if $d-key == t or $d-key == b or $d-key == s or $d-key == e {
+            $prop: if($d-key == s, left, if($d-key == e, right, $d-val));
+            &-#{$d-key} {
+                border-#{$prop}: 1px solid #{$border-color-default} !important;
+                // 다른 방향 초기화 (원본 로직 유지)
+                @each $other-key, $other-val in $sides-map {
+                    @if ($other-key == t or $other-key == b or $other-key == s or $other-key == e) and
+                        $d-key !=
+                        $other-key
+                    {
+                        $other-prop: if($other-key == s, left, if($other-key == e, right, $other-val));
+                        border-#{$other-prop}: 0 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    // 축별 테두리 (예: .u-border-x)
+    &-x {
+        border-left: 1px solid #{$border-color-default} !important;
+        border-right: 1px solid #{$border-color-default} !important;
+        border-top: 0 !important;
+        border-bottom: 0 !important;
+    }
+    &-y {
+        border-top: 1px solid #{$border-color-default} !important;
+        border-bottom: 1px solid #{$border-color-default} !important;
+        border-left: 0 !important;
+        border-right: 0 !important;
+    }
+}
+
+.u-rounded {
+    // 기본값은 2 (Bootstrap 스타일)
+    border-radius: map-get($border-radius-map, 2) !important;
+
+    // Bootstrap 스타일 키 (0, 1, 2, 3, circle, pill)만 사용
+    @each $key in (0, 1, 2, 3, circle, pill) {
+        &-#{$key} {
+            border-radius: map-get($border-radius-map, $key) !important;
+        }
+    }
+
+    // 방향별 반경 (상단/하단/좌/우 묶음)
+    // 기본값은 2
+    $default-radius: map-get($border-radius-map, 2);
+    &-top {
+        border-top-left-radius: #{$default-radius} !important;
+        border-top-right-radius: #{$default-radius} !important;
+    }
+    &-bottom {
+        border-bottom-left-radius: #{$default-radius} !important;
+        border-bottom-right-radius: #{$default-radius} !important;
+    }
+    &-start {
+        border-top-left-radius: #{$default-radius} !important;
+        border-bottom-left-radius: #{$default-radius} !important;
+    }
+    &-end {
+        border-top-right-radius: #{$default-radius} !important;
+        border-bottom-right-radius: #{$default-radius} !important;
+    }
+}

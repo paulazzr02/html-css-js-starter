@@ -1,0 +1,29 @@
+// ========================================
+// 유틸리티 클래스
+// @description 프로젝트 전역에서 사용되는 유틸리티 클래스
+// ========================================
+
+// 유틸리티 모듈 import
+@use 'accessibility';
+
+// 사용하지 않는 유틸리티 (성능 최적화를 위해 주석 처리)
+// @use 'borders';
+// @use 'colors';
+// @use 'display';
+@use 'flex';
+// @use 'float';
+// @use 'interactions';
+// @use 'link';
+// @use 'opacity';
+// @use 'overflow';
+// @use 'position';
+// @use 'print';
+// @use 'ratio';
+// @use 'responsive';
+// @use 'shadow';
+// @use 'sizing';
+@use 'spacing';
+@use 'stacks';
+// @use 'text';
+// @use 'vertical-align';
+// @use 'visually';

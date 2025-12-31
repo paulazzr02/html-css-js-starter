@@ -1,0 +1,73 @@
+// ========================================
+// Text 유틸리티 클래스
+// @group utilities
+// @description 텍스트 정렬, 변형, 두께 및 다중 줄 자르기 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $text-align-map과 $font-weight-map은 config에서 가져옴 (재사용)
+
+// [Alignment] .u-text-start, .u-text-center 등
+@each $key, $val in $text-align-map {
+    .u-text-#{$key} {
+        text-align: #{$val} !important;
+    }
+}
+
+// [Font Weight] .u-fw-light, .u-fw-bold 등
+.u-fw {
+    @each $key, $val in $font-weight-map {
+        &-#{$key} {
+            font-weight: #{$val} !important;
+        }
+    }
+}
+
+// [단일 줄 말줄임] .u-text-truncate
+.u-text-truncate {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    display: block !important;
+}
+
+// [다중 줄 말줄임] .u-text-clamp-1 ~ 5
+[class*='u-text-clamp-'] {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+@for $i from 1 through 5 {
+    .u-text-clamp-#{$i} {
+        -webkit-line-clamp: #{$i} !important;
+        line-clamp: #{$i} !important; // 표준 속성 추가 (호환성)
+    }
+}
+
+.u-text-break {
+    word-break: break-word !important;
+}
+.u-text-nowrap {
+    white-space: nowrap !important;
+}
+.u-text-italic {
+    font-style: italic !important;
+}
+.u-text-decoration-none {
+    text-decoration: none !important;
+}
+
+// .u-text-hover-underline, .u-text-hover-bold 등
+.u-text-hover {
+    &-underline:hover {
+        text-decoration: underline !important;
+    }
+    &-bold:hover {
+        font-weight: var(--krds-font-weight-bold, 700) !important;
+    }
+    &-primary:hover {
+        color: var(--krds-color-light-primary-50) !important;
+    }
+}

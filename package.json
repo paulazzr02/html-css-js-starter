@@ -1,6 +1,6 @@
 {
   "name": "html-css-starter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "효율적인 프론트엔드 개발을 위한 범용 퍼블리싱 템플릿 시스템",
   "main": "index.js",
   "keywords": [
@@ -30,16 +30,15 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development gulp",
     "build": "cross-env NODE_ENV=production gulp prod",
-    "review": "cross-env NODE_ENV=production gulp review",
     "clean": "gulp clean",
-    "new": "node scripts/generate-page.js",
+    "new": "node config/scripts/generate-page.js",
     "serve": "gulp",
     "start": "npm run dev",
-    "compile-scss": "npx sass src/assets/scss/main.scss dist/css/style.css --no-source-map",
-    "tokens:convert": "node scripts/convert-custom-tokens.js",
+    "compile-scss": "npx sass src/styles/styles.scss dist/css/styles.css --no-source-map",
+    "tokens:convert": "node config/scripts/convert-custom-tokens.js",
     "format": "prettier --write \"**/*.{js,json,html,css,scss}\"",
     "format:check": "prettier --check \"**/*.{js,json,html,css,scss}\"",
-    "test:a11y": "node scripts/test-accessibility.js"
+    "test:a11y": "node config/scripts/test-accessibility.js"
   },
   "devDependencies": {
     "browser-sync": "^2.26.7",

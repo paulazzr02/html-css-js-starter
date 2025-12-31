@@ -1,0 +1,76 @@
+// ========================================
+// Ratio 유틸리티 클래스
+// @group utilities
+// @description 요소의 종횡비 및 내부 콘텐츠 배치 제어 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+@use 'abstracts/functions' as *;
+
+// $ratio-map과 $object-fit-map은 config에서 가져옴 (재사용)
+// str-replace 함수는 abstracts/functions에서 가져옴
+
+.u-ratio {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+
+    // 하위 호환성을 위한 padding-top 방식
+    &::before {
+        display: block;
+        padding-top: var(--u-ratio);
+        content: '';
+    }
+
+    // 내부 아이템 (.u-ratio-item 또는 직계 자식) 강제 배치
+    > *,
+    &-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover; // 기본 피팅
+    }
+
+    @each $key, $val in $ratio-map {
+        &-#{$key} {
+            --u-ratio: #{$val};
+
+            // 최신 브라우저 최적화
+            @if $key != 'auto' {
+                // '3x2' 문자열을 '3 / 2' 형태로 치환하는 로직 (내장함수 대체용)
+                $ratio-value: unquote(str-replace($key, 'x', ' / '));
+
+                @supports (aspect-ratio: 1 / 1) {
+                    aspect-ratio: #{$ratio-value} !important;
+
+                    &::before {
+                        display: none !important; // 최신 브라우저에선 padding 필요 없음
+                    }
+                }
+            }
+        }
+    }
+}
+
+// $object-fit-map은 config에서 가져옴 (재사용)
+
+.u-obj {
+    @each $key, $val in $object-fit-map {
+        &-#{$key} {
+            object-fit: #{$val} !important;
+        }
+    }
+
+    &-center {
+        object-position: center !important;
+    }
+    &-top {
+        object-position: top !important;
+    }
+    &-bottom {
+        object-position: bottom !important;
+    }
+}

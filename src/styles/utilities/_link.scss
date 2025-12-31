@@ -1,0 +1,61 @@
+// ========================================
+// Link 유틸리티 클래스
+// @group utilities
+// @description 링크 스타일 및 인터랙션 제어 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $color-map을 재사용 (link-color-map 대신)
+// link에서 사용할 색상만 필터링하여 사용
+
+.u-link {
+    // [Stretched Link] 부모 요소 전체를 클릭 가능하게 만듦
+    // 부모 요소에 position: relative; 가 있어야 합니다.
+    &-stretched {
+        &::after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            content: '';
+        }
+    }
+
+    // [Unstyled Link] 기본 링크 스타일(밑줄, 색상) 제거
+    &-unstyled {
+        color: inherit !important;
+        text-decoration: none !important;
+
+        &:hover {
+            text-decoration: none !important;
+        }
+    }
+
+    // [Color Links] .u-link-primary, .u-link-danger 등
+    // link에서 사용할 색상만 필터링 (primary, secondary, danger, success, info, dark, white)
+    @each $key, $val in $color-map {
+        // link에서 사용하지 않는 색상 제외 (light, muted, black)
+        @if $key != 'light' and $key != 'muted' and $key != 'black' {
+            &-#{$key} {
+                color: #{$val} !important;
+                text-decoration: none;
+
+                &:hover,
+                &:focus {
+                    // 호버 시 언더라인 및 색상 강조 (원본 로직 유지)
+                    text-decoration: underline !important;
+
+                    // KRDS 토큰 특성상 60레벨이나 70레벨로 명도 조절 가능
+                    @if $key == 'primary' {
+                        color: var(--krds-color-light-primary-60) !important;
+                    } @else if $key == 'secondary' {
+                        color: var(--krds-color-light-secondary-60) !important;
+                    }
+                }
+            }
+        }
+    }
+}

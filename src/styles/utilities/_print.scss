@@ -1,0 +1,66 @@
+// ========================================
+// Print 유틸리티 클래스
+// @group utilities
+// @description 인쇄 시에만 적용되는 레이아웃 및 가시성 제어 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $display-map을 재사용 (print-display-map 대신)
+// print에서 사용할 display 값만 필터링하여 사용
+
+@media print {
+    // [Display] .u-print-none, .u-print-block 등
+    // print에서 사용할 display 값만 필터링 (none, block, inline, inline-block, flex, table)
+    @each $key, $val in $display-map {
+        // print에서 사용하지 않는 display 값 제외 (inline-flex, grid, inline-grid, table-cell, table-row)
+        @if $key ==
+            'none' or
+            $key ==
+            'block' or
+            $key ==
+            'inline' or
+            $key ==
+            'inline-block' or
+            $key ==
+            'flex' or
+            $key ==
+            'table'
+        {
+            .u-print-#{$key} {
+                display: #{$val} !important;
+            }
+        }
+    }
+
+    // [Page Breaks] 페이지 줄바꿈 제어
+    .u-print-break {
+        &-before {
+            page-break-before: always !important;
+            break-before: page !important;
+        }
+        &-after {
+            page-break-after: always !important;
+            break-after: page !important;
+        }
+        &-inside-none {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+    }
+
+    // [Color Adjust] 배경색 및 이미지 강제 출력
+    .u-print-color-adjust {
+        print-color-adjust: exact !important; // 표준 속성
+        -webkit-print-color-adjust: exact !important; // 웹킷 호환성
+        color-adjust: exact !important; // 구형 브라우저 호환성 (deprecated)
+    }
+
+    // 기본 인쇄 최적화 (선택 사항)
+    // 인쇄 시 하이퍼링크 옆에 URL 표시 등을 방지하거나 제어할 수 있습니다.
+    .u-print-no-url {
+        a[href]::after {
+            content: none !important;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+@use 'abstracts/config' as *;
+
+// ========================================
+// Visually 유틸리티 클래스
+// @group utilities
+// @description 시각적 표시 관련 유틸리티 클래스들
+// ========================================
+
+.u-visually {
+    &-visible {
+        visibility: visible !important;
+    }
+    &-invisible {
+        visibility: hidden !important;
+    }
+    &-hidden {
+        display: none !important;
+    }
+}

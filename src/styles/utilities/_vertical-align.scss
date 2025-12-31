@@ -1,0 +1,33 @@
+@use 'abstracts/config' as *;
+
+// ========================================
+// Vertical Align 유틸리티 클래스
+// @group utilities
+// @description 인라인 요소 및 테이블 셀의 수직 정렬 제어 (BEM 기반)
+// ========================================
+
+// $vertical-align-map은 config에서 가져옴 (재사용)
+
+// --- 2. 기본 수직 정렬 유틸리티 ---
+// .u-align-baseline, .u-align-middle 등
+.u-align {
+    @each $key, $val in $vertical-align-map {
+        &-#{$key} {
+            vertical-align: #{$val} !important;
+        }
+    }
+}
+
+// --- 3. 반응형 수직 정렬 (필요시 사용) ---
+// 테이블 레이아웃이나 인라인 블록의 모바일/데스크톱 정렬 변화 대응
+@each $bp-key, $bp-val in $breakpoint-map {
+    @if $bp-val != 0 {
+        @media (min-width: $bp-val) {
+            @each $key, $val in $vertical-align-map {
+                .u-align-#{$bp-key}-#{$key} {
+                    vertical-align: #{$val} !important;
+                }
+            }
+        }
+    }
+}

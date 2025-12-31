@@ -10,19 +10,19 @@ module.exports = {
     src: './src',
     dist: './dist',
     html: {
-      src: './src/html',
+      src: './src/pages',
       dest: './dist/html',
     },
     scss: {
-      src: './src/assets/scss',
+      src: './src/styles',
       dest: './dist/assets/css',
     },
     js: {
-      src: './src/assets/js',
+      src: './src/scripts',
       dest: './dist/assets/js',
     },
-    assets: {
-      src: './src/assets',
+    public: {
+      src: './public',
       dest: './dist/assets',
     },
   },
@@ -30,8 +30,8 @@ module.exports = {
   // 파일명 설정
   files: {
     scss: {
-      entry: 'main.scss',
-      output: 'main.css',
+      entry: 'styles.scss',
+      output: 'styles.css',
     },
     html: {
       index: 'index.html',
@@ -58,8 +58,8 @@ module.exports = {
     // SCSS 컴파일 설정
     css: {
       // gulp-sass v6에서는 loadPaths를 사용합니다 (includePaths는 하위 호환성을 위해 유지)
-      loadPaths: ['./node_modules', './src/assets/scss'],
-      includePaths: ['./node_modules', './src/assets/scss'], // 하위 호환성 (deprecated)
+      loadPaths: ['./node_modules', './src/styles'],
+      includePaths: ['./node_modules', './src/styles'], // 하위 호환성 (deprecated)
     },
   },
 

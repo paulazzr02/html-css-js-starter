@@ -1,0 +1,28 @@
+// ========================================
+// Overflow 유틸리티 클래스
+// @group utilities
+// @description 요소의 넘침(Overflow) 제어 유틸리티 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $overflow-map은 config에서 가져옴 (재사용)
+
+// [공통 Overflow] .u-overflow-auto, .u-overflow-hidden 등
+.u-overflow {
+    @each $key, $val in $overflow-map {
+        &-#{$key} {
+            overflow: #{$val} !important;
+        }
+    }
+
+    // [축별 Overflow] .u-overflow-x-auto, .u-overflow-y-hidden 등
+    @each $key, $val in $overflow-map {
+        &-x-#{$key} {
+            overflow-x: #{$val} !important;
+        }
+        &-y-#{$key} {
+            overflow-y: #{$val} !important;
+        }
+    }
+}

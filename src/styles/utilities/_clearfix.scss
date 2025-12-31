@@ -1,0 +1,14 @@
+// ========================================
+// Clearfix 유틸리티 클래스
+// @group utilities
+// @description 플로트 요소 초기화를 위한 유틸리티 클래스
+// ========================================
+
+// 유틸리티 블록 (Block)
+.u-clearfix {
+    &::after {
+        display: block;
+        clear: both;
+        content: '';
+    }
+}

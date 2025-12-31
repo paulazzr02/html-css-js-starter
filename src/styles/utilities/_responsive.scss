@@ -1,0 +1,49 @@
+// ========================================
+// Responsive 유틸리티 클래스
+// @group utilities
+// @description 브레이크포인트 기반 가시성 및 방향 제어 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $display-map은 config에서 가져옴 (재사용)
+// 반응형에서는 일부 값만 사용하지만, 전체 맵을 재사용하여 일관성 유지
+
+@each $key, $val in $display-map {
+    .u-display-#{$key} {
+        display: #{$val} !important;
+    }
+}
+
+// .u-display-md-none, .u-display-lg-flex 등
+@each $breakpoint, $width in $breakpoint-map {
+    @if $width != 0 {
+        @media (min-width: $width) {
+            @each $key, $val in $display-map {
+                .u-display-#{$breakpoint}-#{$key} {
+                    display: #{$val} !important;
+                }
+            }
+        }
+    }
+}
+
+.u-orientation {
+    &-landscape {
+        @media (orientation: landscape) {
+            display: block !important;
+        }
+        @media (orientation: portrait) {
+            display: none !important;
+        }
+    }
+
+    &-portrait {
+        @media (orientation: portrait) {
+            display: block !important;
+        }
+        @media (orientation: landscape) {
+            display: none !important;
+        }
+    }
+}

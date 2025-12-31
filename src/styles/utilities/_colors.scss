@@ -1,0 +1,50 @@
+// ========================================
+// Colors 유틸리티 클래스
+// @group utilities
+// @description 텍스트, 배경, 테두리 색상 및 상태별 유틸리티 (Map & KRDS 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $color-map은 config에서 가져옴 (재사용)
+// 상태별 가상 선택자는 config에서 가져옴 ($state-map 재사용)
+
+@each $key, $val in $color-map {
+    // [Text Color] .u-text-primary, .u-text-primary-hover
+    .u-text-#{$key} {
+        color: #{$val} !important;
+    }
+
+    // [Background Color] .u-bg-primary, .u-bg-primary-hover
+    .u-bg-#{$key} {
+        background-color: #{$val} !important;
+    }
+
+    // [Border Color] .u-border-primary, .u-border-primary-hover
+    .u-border-#{$key} {
+        border-color: #{$val} !important;
+    }
+
+    // 상태별 가상 선택자 (hover, focus, active, disabled)
+    @each $s-key, $s-val in $state-map {
+        .u-text-#{$key}-#{$s-key}#{$s-val} {
+            color: #{$val} !important;
+        }
+        .u-bg-#{$key}-#{$s-key}#{$s-val} {
+            background-color: #{$val} !important;
+        }
+        .u-border-#{$key}-#{$s-key}#{$s-val} {
+            border-color: #{$val} !important;
+        }
+    }
+}
+
+.u-bg-transparent {
+    background-color: transparent !important;
+}
+.u-text-inherit {
+    color: inherit !important;
+}
+.u-border-transparent {
+    border-color: transparent !important;
+}

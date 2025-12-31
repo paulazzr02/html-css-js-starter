@@ -1,0 +1,53 @@
+// ========================================
+// Shadow 유틸리티 클래스
+// @group utilities
+// @description 요소의 그림자 및 상태(Hover)별 깊이감 제어 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $shadow-map은 config에서 가져옴 (재사용)
+
+// [Static Shadows] .u-shadow-1 ~ 5
+.u-shadow {
+    @each $key, $val in $shadow-map {
+        &-#{$key} {
+            box-shadow: #{$val} !important;
+        }
+    }
+
+    // [Hover Shadows] .u-shadow-hover-1 ~ 5
+    // 마우스 오버 시 그림자가 변화하는 효과를 줍니다.
+    &-hover {
+        @each $key, $val in $shadow-map {
+            &-#{$key} {
+                transition: box-shadow var(--krds-transition-base, 0.2s ease-in-out);
+
+                &:hover,
+                &:focus-visible {
+                    box-shadow: #{$val} !important;
+                    // 그림자가 깊어질 때 약간 위로 뜨는 효과를 원한다면 아래 주석 해제
+                    // transform: translateY(-2px);
+                }
+            }
+        }
+    }
+}
+
+// [Lift-up Effect] 그림자 강화 + 위로 이동 결합
+.u-shadow-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+
+    &:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: var(--krds-elevation-3) !important;
+    }
+}
+
+// --- 4. 기타 쉐도우 ---
+.u-text-shadow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+.u-shadow-inset {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06) !important;
+}

@@ -1,0 +1,74 @@
+// ========================================
+// Sizing 유틸리티 클래스
+// @group utilities
+// @description 너비(Width) 및 높이(Height) 제어 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $size-map과 $viewport-size-map은 config에서 가져옴 (재사용)
+
+// [Width] .u-width-50, .u-width-auto
+.u-width {
+    @each $key, $val in $size-map {
+        &-#{$key} {
+            width: #{$val} !important;
+        }
+    }
+
+    @each $key, $val in $viewport-size-map {
+        @if str-index($key, 'vw') {
+            &-#{$key} {
+                width: #{$val} !important;
+            }
+        }
+    }
+
+    // [Max/Min Width]
+    &-max-100 {
+        max-width: 100% !important;
+    }
+    &-min-100 {
+        min-width: 100% !important;
+    }
+}
+
+// [Height] .u-height-50, .u-height-100vh
+.u-height {
+    @each $key, $val in $size-map {
+        &-#{$key} {
+            height: #{$val} !important;
+        }
+    }
+
+    @each $key, $val in $viewport-size-map {
+        @if str-index($key, 'vh') {
+            &-#{$key} {
+                height: #{$val} !important;
+            }
+        }
+    }
+
+    // [Max/Min Height]
+    &-max-100 {
+        max-height: 100% !important;
+    }
+    &-min-100 {
+        min-height: 100% !important;
+    }
+    &-min-100vh {
+        min-height: 100vh !important;
+    }
+}
+
+// 부모 요소에 꽉 차게 설정
+.u-size-full {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+// 반응형 이미지 헬퍼
+.u-img-fluid {
+    max-width: 100% !important;
+    height: auto !important;
+}

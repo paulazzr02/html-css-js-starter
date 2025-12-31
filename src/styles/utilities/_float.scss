@@ -1,0 +1,41 @@
+// ========================================
+// Float 유틸리티 클래스
+// @group utilities
+// @description 요소의 플로트 속성 제어 (BEM 기반 + 반응형 지원)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// $float-map은 config에서 가져옴 (재사용)
+// 브레이크포인트 맵은 config에서 가져옴 ($breakpoint-map 재사용)
+
+// ----------------------------------------
+// Clearfix 유틸리티 (플로트 요소 초기화)
+// ----------------------------------------
+.u-clearfix {
+    &::after {
+        display: block;
+        clear: both;
+        content: '';
+    }
+}
+
+// .u-float-start, .u-float-end, .u-float-none
+@each $key, $value in $float-map {
+    .u-float-#{$key} {
+        float: #{$value} !important;
+    }
+}
+
+// .u-float-md-start, .u-float-lg-none
+@each $bp-key, $bp-value in $breakpoint-map {
+    @if $bp-value != 0 {
+        @media (min-width: #{$bp-value}) {
+            @each $key, $value in $float-map {
+                .u-float-#{$bp-key}-#{$key} {
+                    float: #{$value} !important;
+                }
+            }
+        }
+    }
+}

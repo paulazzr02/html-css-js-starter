@@ -4,10 +4,15 @@
  * @module gulpfile
  *
  * 주요 기능:
- * - SCSS 컴파일 (Sass)
- * - HTML 템플릿 처리 (fileinclude)
- * - Assets 복사 (JS, Fonts, Images)
+ * - SCSS 컴파일
+ * - HTML 템플릿 처리
+ * - 정적 리소스 복사 (public → dist/assets)
  * - 개발 서버 (BrowserSync)
+ * - 경로 변환 (절대경로 ↔ 상대경로)
+ *
+ * 빌드 모드:
+ * - 개발 서버 (serve): 절대경로 사용 (BrowserSync에서 정상 작동)
+ * - 프로덕션 빌드 (prod): 상대경로 사용 (file:// 프로토콜 지원, 웹 서버 없이도 작동)
  *
  * 설정 파일: config/site.config.js
  */
@@ -45,9 +50,9 @@ const paths = {
     src: config.paths.js.src + '/',
     dest: config.paths.js.dest + '/',
   },
-  assets: {
-    src: config.paths.assets.src + '/',
-    dest: config.paths.assets.dest + '/',
+  public: {
+    src: config.paths.public.src + '/',
+    dest: config.paths.public.dest + '/',
   },
 };
 
@@ -163,7 +168,7 @@ function convertHtmlPaths(content, fileLocation = 'html', htmlFilePath = null) {
  * @param {string} content - HTML 내용
  * @param {string} [fileLocation='html'] - 파일 위치 ('root' | 'html')
  * @returns {string} 변환된 HTML 내용
- * @description review task용으로 사용
+ * @description 프로덕션 빌드에서 file:// 프로토콜 지원을 위해 사용
  */
 function convertToRelativePaths(content, fileLocation = 'html') {
   if (fileLocation === 'root') {
@@ -186,7 +191,7 @@ function convertToRelativePaths(content, fileLocation = 'html') {
   }
 
   // file:// 프로토콜에서도 작동하도록 crossorigin 속성 제거
-  // review 빌드는 로컬 파일로 열 수 있도록 최적화
+  // 로컬 파일로 열 수 있도록 최적화
   content = content.replace(/\s+crossorigin="anonymous"/g, '');
   content = content.replace(/\s+crossorigin='anonymous'/g, '');
 
@@ -374,7 +379,7 @@ async function cleanBuild() {
 /**
  * SCSS 파일 컴파일
  * @param {string} scssFile - 컴파일할 SCSS 파일 경로
- * @param {string} outputPath - 출력 경로 (예: 'main.css')
+ * @param {string} outputPath - 출력 경로 (예: 'styles.css')
  * @param {boolean} isDevelopment - 개발 모드 여부
  * @returns {Promise<void>} 컴파일 완료 시 resolve
  */
@@ -435,7 +440,7 @@ async function compileScssFile(scssFile, outputPath, isDevelopment) {
     if (isDevelopment) {
       stream = stream.pipe(
         sourcemaps.write('.', {
-          sourceRoot: '../src/assets/scss',
+          sourceRoot: '../src/styles',
           includeContent: false,
         }),
       );
@@ -638,17 +643,14 @@ async function processHTML(options = {}) {
 }
 
 /**
- * Assets 복사
+ * 정적 리소스 복사
  * @returns {Promise<void>}
  * @description 프로젝트 리소스 복사
- * - JavaScript 파일: src/assets/js → dist/assets/js
- * - 폰트 파일: src/assets/fonts → dist/assets/fonts
- * - 이미지 파일: src/assets/img → dist/assets/img
  */
 async function copyAssets() {
-  ensureDir(paths.assets.dest);
-  const fontsDest = path.join(paths.assets.dest, 'fonts');
-  const imgDest = path.join(paths.assets.dest, 'img');
+  ensureDir(paths.public.dest);
+  const fontsDest = path.join(paths.public.dest, 'fonts');
+  const imgDest = path.join(paths.public.dest, 'img');
 
   // 기존 파일 삭제
   await deleteDirectory(fontsDest);
@@ -691,12 +693,12 @@ async function copyAssets() {
     // 에러가 발생해도 빌드를 계속 진행
   }
 
-  // fonts를 dist/assets/fonts로 복사
+  // fonts를 dist/assets/fonts로 복사 (public/fonts에서)
   ensureDir(fontsDest);
 
   try {
-    // 소스 폰트 파일 찾기
-    const fontsSourcePattern = path.join(paths.assets.src, 'fonts', '**/*').replace(/\\/g, '/');
+    // 소스 폰트 파일 찾기 (public/fonts에서)
+    const fontsSourcePattern = path.join(paths.public.src, 'fonts', '**/*').replace(/\\/g, '/');
     const sourceFonts = await glob(fontsSourcePattern, {
       nodir: true, // 디렉토리 제외, 파일만
     }).catch(() => []);
@@ -707,7 +709,7 @@ async function copyAssets() {
 
       for (const sourceFile of sourceFonts) {
         try {
-          const relativePath = path.relative(path.join(paths.assets.src, 'fonts'), sourceFile);
+          const relativePath = path.relative(path.join(paths.public.src, 'fonts'), sourceFile);
           const destFile = path.join(fontsDest, relativePath);
           const destDir = path.dirname(destFile);
           ensureDir(destDir);
@@ -775,21 +777,21 @@ async function copyAssets() {
     // 에러가 발생해도 빌드를 계속 진행
   }
 
-  // favicon을 dist 루트로 복사
+  // favicon을 dist 루트로 복사 (public에서)
   const faviconFile = config.files?.favicon || 'favicon.svg';
-  const faviconSource = path.join(paths.assets.src, faviconFile);
+  const faviconSource = path.join(paths.public.src, faviconFile);
   if (fs.existsSync(faviconSource)) {
     const faviconDest = path.join(paths.scripts.dest, faviconFile);
     fs.copyFileSync(faviconSource, faviconDest);
     console.log(`✓ Copied ${faviconFile} to dist root`);
   }
 
-  // img를 dist/assets/img로 복사
+  // img를 dist/assets/img로 복사 (public/img에서)
   ensureDir(imgDest);
 
   try {
-    // 소스 이미지 파일 찾기
-    const imgSourcePattern = path.join(paths.assets.src, 'img', '**/*').replace(/\\/g, '/');
+    // 소스 이미지 파일 찾기 (public/img에서)
+    const imgSourcePattern = path.join(paths.public.src, 'img', '**/*').replace(/\\/g, '/');
     const sourceImages = await glob(imgSourcePattern, {
       nodir: true, // 디렉토리 제외, 파일만
       ignore: ['**/*.scss', '**/*.js'], // SCSS와 JS 파일 제외
@@ -803,7 +805,7 @@ async function copyAssets() {
 
       for (const sourceFile of sourceImages) {
         try {
-          const relativePath = path.relative(path.join(paths.assets.src, 'img'), sourceFile);
+          const relativePath = path.relative(path.join(paths.public.src, 'img'), sourceFile);
           const destFile = path.join(imgDest, relativePath);
           const destDir = path.dirname(destFile);
           ensureDir(destDir);
@@ -851,7 +853,7 @@ async function build() {
     console.log('Build completed!');
     const indexFile = config.files?.html?.index || 'index.html';
     console.log(
-      `- Output: ${config.paths.dist}/${indexFile}, ${config.paths.html.dest}/, ${config.paths.scss.dest}/, ${config.paths.js.dest}/, ${config.paths.assets.dest}/fonts/, ${config.paths.assets.dest}/img/`,
+      `- Output: ${config.paths.dist}/${indexFile}, ${config.paths.html.dest}/, ${config.paths.scss.dest}/, ${config.paths.js.dest}/, ${config.paths.public.dest}/fonts/, ${config.paths.public.dest}/img/`,
     );
   } catch (error) {
     console.error('Build error:', error);
@@ -914,7 +916,7 @@ function serve(done) {
               // CSS 컴파일 완료 후 브라우저에 반영
               if (server && server.active) {
                 // CSS 파일 경로를 명시적으로 지정하여 리로드
-                const cssOutput = config.files?.scss?.output || 'main.css';
+                const cssOutput = config.files?.scss?.output || 'styles.css';
                 const cssFilePath = path.join(paths.scss.dest, cssOutput);
                 if (fs.existsSync(cssFilePath)) {
                   // BrowserSync의 stream을 사용하여 CSS만 업데이트 (페이지 리로드 없이)
@@ -940,7 +942,7 @@ function serve(done) {
         [
           path.join(config.paths.src, indexHtmlFile),
           paths.html.src + '*.html',
-          path.join(config.paths.src, 'includes', '**', '*.html'),
+          path.join(config.paths.src, 'templates', '**', '*.html'),
         ],
         { ignoreInitial: true },
         function (done) {
@@ -970,9 +972,10 @@ function serve(done) {
       let assetsTimeout = null;
       watch(
         [
-          paths.assets.src + 'fonts/**/*',
-          paths.assets.src + 'img/**/*',
-          paths.assets.src + 'js/**/*',
+          paths.public.src + 'fonts/**/*',
+          paths.public.src + 'img/**/*',
+          paths.public.src + 'favicon.svg',
+          paths.js.src + '**/*',
           '!' + paths.scss.src + '**/*', // SCSS는 제외 (별도 watch에서 처리)
         ],
         { ignoreInitial: true },
@@ -1011,7 +1014,7 @@ function serve(done) {
 /**
  * 프로덕션 빌드
  * @returns {Promise<void>}
- * @description 프로덕션 환경용 최적화된 빌드
+ * @description 프로덕션 환경용 최적화된 빌드 (상대경로 사용 - file:// 프로토콜 지원)
  */
 async function prod() {
   await cleanBuild();
@@ -1023,45 +1026,14 @@ async function prod() {
   await compileSass();
   console.log('SCSS compilation completed.');
 
-  // Assets 복사 (JS, 폰트, 이미지 등)
-  console.log('Starting Assets copying...');
+  // 정적 리소스 복사 (JS, 폰트, 이미지 등)
+  console.log('Starting static resources copying...');
   await copyAssets();
-  console.log('Assets copying completed.');
+  console.log('Static resources copying completed.');
 
   // HTML 처리는 마지막에 실행 (CSS/JS 파일이 준비된 후)
-  console.log('Starting HTML processing...');
-  await processHTML();
-  console.log('HTML processing completed.');
-
-  console.log('Production build completed!');
-}
-
-/**
- * 검수용 빌드 (상대경로)
- * @returns {Promise<void>}
- * @description 상대경로를 사용하는 검수용 빌드 (메일 전송 등 단일 HTML 파일이 필요한 경우 사용)
- */
-async function review() {
-  await cleanBuild();
-  ensureDir(paths.scripts.dest);
-  ensureDir(paths.scss.dest);
-
-  console.log('=== Review Build (검수용 빌드) ===');
-  console.log('Path Mode: relative (상대경로)');
-
-  // SCSS 컴파일을 먼저 실행 (토큰 파일 생성 등)
-  console.log('Starting SCSS compilation...');
-  await compileSass();
-  console.log('SCSS compilation completed.');
-
-  // Assets 복사 (JS, 폰트, 이미지 등)
-  console.log('Starting Assets copying...');
-  await copyAssets();
-  console.log('Assets copying completed.');
-
-  // HTML 처리 (CSS/JS 파일이 준비된 후)
-  // 검수용 설정: 상대경로
-  console.log('Starting HTML processing with review settings...');
+  // 상대경로 사용: file:// 프로토콜에서도 작동하도록
+  console.log('Starting HTML processing with relative paths...');
   await processHTML({
     useRelativePaths: true,
   });
@@ -1069,19 +1041,36 @@ async function review() {
 
   // CSS 파일 내부의 절대 경로를 상대 경로로 변환 (file:// 프로토콜 지원)
   console.log('Converting CSS paths for file:// protocol...');
-  const cssFilePath = path.join(paths.scss.dest, config.files.scss.output || 'main.css');
+  const cssFilePath = path.join(paths.scss.dest, config.files.scss.output || 'styles.css');
   if (fs.existsSync(cssFilePath)) {
     let cssContent = fs.readFileSync(cssFilePath, 'utf8');
-    // 절대 경로를 상대 경로로 변환
+    // 절대 경로를 상대 경로로 변환 (dist/assets/css/ 기준으로 ../)
     cssContent = cssContent.replace(/url\(["']?\/assets\//g, 'url("../');
     cssContent = cssContent.replace(/url\(["']?\/fonts\//g, 'url("../fonts/');
+    cssContent = cssContent.replace(/url\(["']?\/img\//g, 'url("../img/');
     fs.writeFileSync(cssFilePath, cssContent, 'utf8');
     console.log(`✓ CSS paths converted: ${cssFilePath}`);
   }
 
-  console.log('Review build completed!');
-  console.log('- Path Mode: relative');
-  console.log('- File protocol support: enabled (crossorigin removed, relative paths)');
+  // 컴포넌트 및 페이지 CSS 파일도 변환
+  const cssFiles = await glob(path.join(paths.scss.dest, '**/*.css').replace(/\\/g, '/'));
+  for (const cssFile of cssFiles) {
+    if (cssFile !== cssFilePath) {
+      let cssContent = fs.readFileSync(cssFile, 'utf8');
+      // 상대 경로 계산
+      const relativeDepth = path
+        .relative(paths.scss.dest, path.dirname(cssFile))
+        .split(path.sep).length;
+      const relativePrefix = '../'.repeat(relativeDepth + 1);
+      cssContent = cssContent.replace(/url\(["']?\/assets\//g, `url("${relativePrefix}`);
+      cssContent = cssContent.replace(/url\(["']?\/fonts\//g, `url("${relativePrefix}fonts/`);
+      cssContent = cssContent.replace(/url\(["']?\/img\//g, `url("${relativePrefix}img/`);
+      fs.writeFileSync(cssFile, cssContent, 'utf8');
+    }
+  }
+
+  console.log('Production build completed!');
+  console.log('- Path Mode: relative (file:// protocol supported)');
 }
 
 // Gulp Tasks Export
@@ -1092,4 +1081,3 @@ exports.build = build;
 exports.clean = cleanBuild;
 exports.default = serve;
 exports.prod = prod;
-exports.review = review;

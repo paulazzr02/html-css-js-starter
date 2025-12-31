@@ -1,0 +1,22 @@
+// ========================================
+// Stacks 유틸리티 클래스
+// @group utilities
+// @description 수직/수평 스택 레이아웃 제어 유틸리티 (BEM 기반)
+// ========================================
+
+@use 'abstracts/config' as *;
+
+// 모든 stacks 관련 맵은 config에서 가져옴 (재사용)
+// $spacing-map, $align-items-map, $justify-content-map
+
+// [Stack Container - Vertical] .u-vstack
+.u-vstack {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+// [Stack Container - Horizontal] .u-hstack
+.u-hstack {
+    display: flex !important;
+    flex-direction: row !important;
+}
