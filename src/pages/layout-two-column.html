@@ -7,12 +7,12 @@
   </head>
   <body>
     @@include('../templates/_skip-link.html')
-    <div id="root" class="layout__root layout__page">
+    <div id="root" class="layout__root">
       @@include('../templates/_header.html', { page_name: "layout-two-column" })
 
       <!-- 본문 영역 -->
-      <main class="layout__content" id="main" role="main">
-        <div class="layout__content__container layout-two-column">
+      <main id="main" role="main">
+        <div class="layout-two-column">
           <aside class="layout-two-column__sidebar" role="complementary">
             <nav class="layout-two-column__sidebar-nav">
               <h2>사이드바</h2>

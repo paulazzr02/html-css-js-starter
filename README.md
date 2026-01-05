@@ -48,7 +48,24 @@ npm install
 
 ### 2. 설정
 
-`config/site.config.js`에서 프로젝트 설정 수정:
+프로젝트 설정을 위해 `config/site.config.example.js`를 참고하여 `config/site.config.js`를 생성하고 수정하세요:
+
+```bash
+# Linux/Mac
+cp config/site.config.example.js config/site.config.js
+
+# Windows
+copy config\site.config.example.js config\site.config.js
+```
+
+주요 설정 항목:
+
+- **경로 설정**: 소스 및 빌드 결과물 경로
+- **개발 서버 설정**: 포트, 브라우저 자동 열기 등
+- **언어 설정**: HTML lang 속성
+- **Viewport 설정**: 반응형/적응형 모드 선택
+
+자세한 설정 옵션은 `config/site.config.example.js` 파일의 주석을 참고하세요.
 
 ### 3. 개발 서버 실행
 
@@ -98,20 +115,34 @@ npm run test:a11y
 
 ## 🔧 개발 환경
 
-- **Node.js**: >=18.17.1
+- **Node.js**: >=18.17.1 (`.nvmrc` 파일 참고)
 - **Gulp**: 4.x
 - **Sass**: Dart Sass
 - **BrowserSync**: 자동 리로드
+
+### Node.js 버전 관리
+
+프로젝트는 `.nvmrc` 파일로 Node.js 버전을 관리합니다. nvm을 사용하는 경우:
+
+```bash
+# Node.js 버전 자동 전환
+nvm use
+
+# 또는 특정 버전 설치
+nvm install 18.17.1
+```
 
 ### HTML 인클루드
 
 `gulp-file-include`를 사용하여 HTML 파일을 모듈화:
 
 ```html
-@@include('../includes/_header.html')
+@@include('../templates/_header.html')
 ```
 
 접두사는 `config/site.config.js`의 `build.html.prefix`에서 변경 가능 (기본값: `'@@'`).
+
+**참고**: 템플릿 경로는 `src/templates/` 디렉토리를 기준으로 합니다.
 
 ## 🧩 문제 해결
 

@@ -7,11 +7,11 @@
   </head>
   <body>
     @@include('../templates/_skip-link.html')
-    <div id="root" class="layout__root layout__page layout-dashboard">
+    <div id="root" class="layout__root layout-dashboard">
       @@include('../templates/_header.html', { page_name: "layout-dashboard" })
 
       <!-- 본문 영역 -->
-      <main class="layout__content layout-dashboard__main" id="main" role="main">
+      <main class="layout-dashboard__main" id="main" role="main">
         <div class="layout-dashboard__container">
           <!-- 사이드바 -->
           <aside class="layout-dashboard__sidebar" role="navigation">
@@ -42,7 +42,7 @@
           <!-- 메인 콘텐츠 -->
           <div class="layout-dashboard__content">
             <div class="layout-dashboard__header">
-              <h1>통신 모니터링 대시보드</h1>
+              <h1>모니터링 대시보드</h1>
               <p class="lead">실시간 트래픽/장애 현황과 주요 지표를 제공합니다.</p>
             </div>
 

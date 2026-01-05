@@ -32,7 +32,7 @@ if (!pageName) {
 
 // 페이지 템플릿 생성
 const pageTemplate = `<!DOCTYPE html>
-<html lang="${config.site.language}">
+<html lang="${config.language || 'ko'}">
   <head>
     @@include('../templates/_head.html', {
       page_main: false,
@@ -64,7 +64,7 @@ const pageTemplate = `<!DOCTYPE html>
 
       <!-- Content -->
       <main class="layout__content" id="main" role="main">
-        <div class="${config.html.default.containerClass} ${config.html.default.mainClass}">
+        <div class="container">
           <div class="row">
             <div class="col-lg-8 mx-auto">
               <h1>${options.title}</h1>

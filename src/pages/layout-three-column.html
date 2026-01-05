@@ -7,12 +7,12 @@
   </head>
   <body>
     @@include('../templates/_skip-link.html')
-    <div id="root" class="layout__root layout__page">
+    <div id="root" class="layout__root">
       @@include('../templates/_header.html', { page_name: "layout-three-column" })
 
       <!-- 본문 영역 -->
-      <main class="layout__content" id="main" role="main">
-        <div class="layout__content__container layout-three-column">
+      <main id="main" role="main">
+        <div class="layout-three-column">
           <aside
             class="layout-three-column__sidebar layout-three-column__sidebar--left"
             role="complementary"

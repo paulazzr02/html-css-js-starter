@@ -7,12 +7,12 @@
   </head>
   <body>
     @@include('../templates/_skip-link.html')
-    <div id="root" class="layout__root layout__page">
+    <div id="root" class="layout__root">
       @@include('../templates/_header.html', { page_name: "layout-single-column" })
 
       <!-- 본문 영역 -->
-      <main class="layout__content" id="main" role="main">
-        <div class="layout__content__container layout-single-column">
+      <main id="main" role="main">
+        <div class="layout-single-column">
           <div class="layout-single-column__hero">
             <h1>Single Column Layout</h1>
             <p class="lead">단일 컬럼 레이아웃은 가장 기본적인 레이아웃 유형입니다.</p>
