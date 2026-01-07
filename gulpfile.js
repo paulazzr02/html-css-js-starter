@@ -65,21 +65,44 @@ const paths = {
  * @description href, src 속성 및 인라인 스타일의 url() 경로를 절대경로로 변환
  */
 function convertHtmlPaths(content, fileLocation = 'html', htmlFilePath = null) {
-  content = content.replace(/href="\.\.\/assets\//g, 'href="/assets/');
-  content = content.replace(/src="\.\.\/assets\//g, 'src="/assets/');
+  // 설정 파일에서 경로 별칭 가져오기
+  const aliases = config.pathAliases || {};
+  const assetsPath = aliases.assetsPath || '/assets';
+  const pagesPath = aliases.pagesPath || '/html';
+
+  // 짧은 경로를 자동으로 변환 (개발 편의성 향상)
+  // images/... → /assets/images/...
+  content = content.replace(/(href|src)="images\//g, `$1="${assetsPath}/images/`);
+  // css/... → /assets/css/...
+  content = content.replace(/(href|src)="css\//g, `$1="${assetsPath}/css/`);
+  // js/... → /assets/js/...
+  content = content.replace(/(href|src)="js\//g, `$1="${assetsPath}/js/`);
+  // fonts/... → /assets/fonts/...
+  content = content.replace(/(href|src)="fonts\//g, `$1="${assetsPath}/fonts/`);
+  // favicon.svg → /favicon.svg
+  content = content.replace(/(href|src)="favicon\.svg"/g, '$1="/favicon.svg"');
+
+  // 페이지 링크: *.html → /html/*.html (같은 폴더 내 파일)
+  if (fileLocation === 'html') {
+    content = content.replace(/href="([^/"]+\.html)"/g, `href="${pagesPath}/$1"`);
+  }
+
+  // 기존 상대 경로 변환 (하위 호환성)
+  content = content.replace(/href="\.\.\/assets\//g, `href="${assetsPath}/`);
+  content = content.replace(/src="\.\.\/assets\//g, `src="${assetsPath}/`);
   content = content.replace(/href="\.\.\/favicon\.svg"/g, 'href="/favicon.svg"');
-  content = content.replace(/href="\.\.\/fonts\//g, 'href="/fonts/');
+  content = content.replace(/href="\.\.\/fonts\//g, `href="${assetsPath}/fonts/`);
 
   if (fileLocation === 'root') {
-    content = content.replace(/href="\.\/assets\//g, 'href="/assets/');
-    content = content.replace(/src="\.\/assets\//g, 'src="/assets/');
+    content = content.replace(/href="\.\/assets\//g, `href="${assetsPath}/`);
+    content = content.replace(/src="\.\/assets\//g, `src="${assetsPath}/`);
     content = content.replace(/href="\.\/favicon\.svg"/g, 'href="/favicon.svg"');
-    content = content.replace(/href="\.\/fonts\//g, 'href="/fonts/');
+    content = content.replace(/href="\.\/fonts\//g, `href="${assetsPath}/fonts/`);
 
-    content = content.replace(/href="\.\/html\//g, 'href="/html/');
+    content = content.replace(/href="\.\/html\//g, `href="${pagesPath}/`);
   } else {
     content = content.replace(/href="\.\.\/index\.html"/g, 'href="/index.html"');
-    content = content.replace(/href="\.\.\/html\//g, 'href="/html/');
+    content = content.replace(/href="\.\.\/html\//g, `href="${pagesPath}/`);
   }
 
   // HTML 인라인 스타일의 url() 경로 변환 (CSS 파일 기준으로)
@@ -171,23 +194,39 @@ function convertHtmlPaths(content, fileLocation = 'html', htmlFilePath = null) {
  * @description 프로덕션 빌드에서 file:// 프로토콜 지원을 위해 사용
  */
 function convertToRelativePaths(content, fileLocation = 'html') {
+  // 설정 파일에서 경로 별칭 가져오기
+  const aliases = config.pathAliases || {};
+  const assetsPath = aliases.assetsPath || '/assets';
+  const pagesPath = aliases.pagesPath || '/html';
+
+  // 짧은 경로를 먼저 절대 경로로 변환한 후 상대 경로로 변환
+  // images/... → /assets/images/... → ../assets/images/...
+  content = content.replace(/(href|src)="images\//g, `$1="${assetsPath}/images/`);
+  content = content.replace(/(href|src)="css\//g, `$1="${assetsPath}/css/`);
+  content = content.replace(/(href|src)="js\//g, `$1="${assetsPath}/js/`);
+  content = content.replace(/(href|src)="fonts\//g, `$1="${assetsPath}/fonts/`);
+  content = content.replace(/(href|src)="favicon\.svg"/g, '$1="/favicon.svg"');
+
+  // 페이지 링크: *.html → /html/*.html → ../html/*.html
+  if (fileLocation === 'html') {
+    content = content.replace(/href="([^/"]+\.html)"/g, `href="${pagesPath}/$1"`);
+  }
+
   if (fileLocation === 'root') {
-    content = content.replace(/href="\/assets\//g, 'href="./assets/');
-    content = content.replace(/src="\/assets\//g, 'src="./assets/');
+    content = content.replace(new RegExp(`href="${assetsPath}/`, 'g'), 'href="./assets/');
+    content = content.replace(new RegExp(`src="${assetsPath}/`, 'g'), 'src="./assets/');
     content = content.replace(/href="\/favicon\.svg"/g, 'href="./favicon.svg"');
-    content = content.replace(/href="\/fonts\//g, 'href="./fonts/');
     // include 파일에서 사용하는 상대 경로도 변환 (../assets/ → ./assets/)
     content = content.replace(/src="\.\.\/assets\//g, 'src="./assets/');
     content = content.replace(/href="\.\.\/assets\//g, 'href="./assets/');
     // HTML 페이지 링크 경로 변환 (/html/... → ./html/...)
-    content = content.replace(/href="\/html\//g, 'href="./html/');
+    content = content.replace(new RegExp(`href="${pagesPath}/`, 'g'), 'href="./html/');
   } else {
-    content = content.replace(/href="\/assets\//g, 'href="../assets/');
-    content = content.replace(/src="\/assets\//g, 'src="../assets/');
+    content = content.replace(new RegExp(`href="${assetsPath}/`, 'g'), 'href="../assets/');
+    content = content.replace(new RegExp(`src="${assetsPath}/`, 'g'), 'src="../assets/');
     content = content.replace(/href="\/favicon\.svg"/g, 'href="../favicon.svg"');
-    content = content.replace(/href="\/fonts\//g, 'href="../fonts/');
     // HTML 페이지 링크 경로 변환 (/html/... → ../html/...)
-    content = content.replace(/href="\/html\//g, 'href="../html/');
+    content = content.replace(new RegExp(`href="${pagesPath}/`, 'g'), 'href="../html/');
   }
 
   // file:// 프로토콜에서도 작동하도록 crossorigin 속성 제거
@@ -566,6 +605,8 @@ async function processHTML(options = {}) {
           env: process.env.NODE_ENV || 'development',
           language: config.language || 'ko',
           viewport: config.viewport || { mode: 'adaptive', fixedWidth: 1600 },
+          assetsPath: config.pathAliases?.assetsPath || '/assets',
+          pagesPath: config.pathAliases?.pagesPath || '/pages',
         },
       }),
     )
@@ -618,6 +659,8 @@ async function processHTML(options = {}) {
           env: process.env.NODE_ENV || 'development',
           language: config.language || 'ko',
           viewport: config.viewport || { mode: 'adaptive', fixedWidth: 1600 },
+          assetsPath: config.pathAliases?.assetsPath || '/assets',
+          pagesPath: config.pathAliases?.pagesPath || '/pages',
         },
       }),
     )
@@ -1041,13 +1084,14 @@ async function prod() {
 
   // CSS 파일 내부의 절대 경로를 상대 경로로 변환 (file:// 프로토콜 지원)
   console.log('Converting CSS paths for file:// protocol...');
+  const aliases = config.pathAliases || {};
+  const assetsPath = aliases.assetsPath || '/assets';
+
   const cssFilePath = path.join(paths.scss.dest, config.files.scss.output || 'styles.css');
   if (fs.existsSync(cssFilePath)) {
     let cssContent = fs.readFileSync(cssFilePath, 'utf8');
     // 절대 경로를 상대 경로로 변환 (dist/assets/css/ 기준으로 ../)
-    cssContent = cssContent.replace(/url\(["']?\/assets\//g, 'url("../');
-    cssContent = cssContent.replace(/url\(["']?\/fonts\//g, 'url("../fonts/');
-    cssContent = cssContent.replace(/url\(["']?\/img\//g, 'url("../img/');
+    cssContent = cssContent.replace(new RegExp(`url\\(["']?${assetsPath}/`, 'g'), 'url("../');
     fs.writeFileSync(cssFilePath, cssContent, 'utf8');
     console.log(`✓ CSS paths converted: ${cssFilePath}`);
   }
@@ -1062,9 +1106,10 @@ async function prod() {
         .relative(paths.scss.dest, path.dirname(cssFile))
         .split(path.sep).length;
       const relativePrefix = '../'.repeat(relativeDepth + 1);
-      cssContent = cssContent.replace(/url\(["']?\/assets\//g, `url("${relativePrefix}`);
-      cssContent = cssContent.replace(/url\(["']?\/fonts\//g, `url("${relativePrefix}fonts/`);
-      cssContent = cssContent.replace(/url\(["']?\/img\//g, `url("${relativePrefix}img/`);
+      cssContent = cssContent.replace(
+        new RegExp(`url\\(["']?${assetsPath}/`, 'g'),
+        `url("${relativePrefix}`,
+      );
       fs.writeFileSync(cssFile, cssContent, 'utf8');
     }
   }
