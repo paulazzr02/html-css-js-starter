@@ -13,7 +13,7 @@ module.exports = {
     dist: './dist', // 빌드 결과물 디렉토리
     html: {
       src: './src/pages', // HTML 소스 파일 위치
-      dest: './dist/html', // HTML 빌드 결과물 위치
+      dest: './dist/pages', // HTML 빌드 결과물 위치
     },
     scss: {
       src: './src/styles', // SCSS 소스 파일 위치

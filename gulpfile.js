@@ -68,7 +68,7 @@ function convertHtmlPaths(content, fileLocation = 'html', htmlFilePath = null) {
   // 설정 파일에서 경로 별칭 가져오기
   const aliases = config.pathAliases || {};
   const assetsPath = aliases.assetsPath || '/assets';
-  const pagesPath = aliases.pagesPath || '/html';
+  const pagesPath = aliases.pagesPath || '/pages';
 
   // 짧은 경로를 자동으로 변환 (개발 편의성 향상)
   // images/... → /assets/images/...
@@ -82,9 +82,20 @@ function convertHtmlPaths(content, fileLocation = 'html', htmlFilePath = null) {
   // favicon.svg → /favicon.svg
   content = content.replace(/(href|src)="favicon\.svg"/g, '$1="/favicon.svg"');
 
-  // 페이지 링크: *.html → /html/*.html (같은 폴더 내 파일)
+  // 페이지 링크 자동 변환: 같은 폴더 내 파일 링크를 pagesPath로 변환
+  // href="login.html" → href="/pages/login.html" (개발 모드)
+  // 이미 절대 경로(/pages/, /html/)나 상대 경로(./, ../)로 시작하는 것은 제외
   if (fileLocation === 'html') {
-    content = content.replace(/href="([^/"]+\.html)"/g, `href="${pagesPath}/$1"`);
+    // index.html은 루트를 가리키므로 먼저 처리
+    content = content.replace(/href="index\.html"/g, 'href="/index.html"');
+    // 상대 경로가 아닌 파일명만 있는 링크 변환 (index.html 제외)
+    content = content.replace(/href="([^./"][^/"]*\.html)"/g, (match, fileName) => {
+      // index.html은 이미 처리되었으므로 제외
+      if (fileName === 'index.html') {
+        return match;
+      }
+      return `href="${pagesPath}/${fileName}"`;
+    });
   }
 
   // 기존 상대 경로 변환 (하위 호환성)
@@ -99,10 +110,10 @@ function convertHtmlPaths(content, fileLocation = 'html', htmlFilePath = null) {
     content = content.replace(/href="\.\/favicon\.svg"/g, 'href="/favicon.svg"');
     content = content.replace(/href="\.\/fonts\//g, `href="${assetsPath}/fonts/`);
 
-    content = content.replace(/href="\.\/html\//g, `href="${pagesPath}/`);
+    content = content.replace(/href="\.\/pages\//g, `href="${pagesPath}/`);
   } else {
     content = content.replace(/href="\.\.\/index\.html"/g, 'href="/index.html"');
-    content = content.replace(/href="\.\.\/html\//g, `href="${pagesPath}/`);
+    content = content.replace(/href="\.\.\/pages\//g, `href="${pagesPath}/`);
   }
 
   // HTML 인라인 스타일의 url() 경로 변환 (CSS 파일 기준으로)
@@ -197,7 +208,11 @@ function convertToRelativePaths(content, fileLocation = 'html') {
   // 설정 파일에서 경로 별칭 가져오기
   const aliases = config.pathAliases || {};
   const assetsPath = aliases.assetsPath || '/assets';
-  const pagesPath = aliases.pagesPath || '/html';
+  const pagesPath = aliases.pagesPath || '/pages';
+
+  // 실제 빌드 결과물 경로에서 폴더명 추출 (dist/pages → pages)
+  const htmlDestPath = config.paths.html.dest || './dist/pages';
+  const htmlFolderName = path.basename(htmlDestPath);
 
   // 짧은 경로를 먼저 절대 경로로 변환한 후 상대 경로로 변환
   // images/... → /assets/images/... → ../assets/images/...
@@ -207,26 +222,48 @@ function convertToRelativePaths(content, fileLocation = 'html') {
   content = content.replace(/(href|src)="fonts\//g, `$1="${assetsPath}/fonts/`);
   content = content.replace(/(href|src)="favicon\.svg"/g, '$1="/favicon.svg"');
 
-  // 페이지 링크: *.html → /html/*.html → ../html/*.html
+  // 짧은 경로를 먼저 절대 경로로 변환 (개발 모드와 동일한 처리)
+  // href="login.html" → href="/pages/login.html" → href="./login.html"
   if (fileLocation === 'html') {
-    content = content.replace(/href="([^/"]+\.html)"/g, `href="${pagesPath}/$1"`);
+    // index.html은 루트를 가리키므로 먼저 처리 (여러 줄 허용)
+    content = content.replace(/href\s*=\s*"index\.html"/g, 'href="/index.html"');
+    // 상대 경로가 아닌 파일명만 있는 링크를 pagesPath로 변환 (index.html 제외, 여러 줄 허용)
+    content = content.replace(/href\s*=\s*"([^./"][^/"]*\.html)"/g, (match, fileName) => {
+      // index.html은 이미 처리되었으므로 제외
+      if (fileName === 'index.html') {
+        return match;
+      }
+      return `href="${pagesPath}/${fileName}"`;
+    });
+    // pagesPath를 사용한 링크를 같은 폴더 내 상대 경로로 변환 (여러 줄 허용)
+    content = content.replace(
+      new RegExp(`href\\s*=\\s*"${pagesPath.replace('/', '\\/')}/`, 'g'),
+      'href="./',
+    );
+    // /index.html 루트 경로 (여러 줄 허용)
+    // 여러 줄에 걸친 경우도 처리: href="/index.html"\n  >
+    // 닫는 따옴표를 포함하여 변환
+    content = content.replace(/href\s*=\s*"\/index\.html"/g, 'href="../index.html"');
+  } else {
+    // 루트에서 pages 폴더로 (공백 허용)
+    content = content.replace(
+      new RegExp(`href\\s*=\\s*"${pagesPath.replace('/', '\\/')}/`, 'g'),
+      `href="./${htmlFolderName}/`,
+    );
   }
 
+  // assets 경로 변환
   if (fileLocation === 'root') {
     content = content.replace(new RegExp(`href="${assetsPath}/`, 'g'), 'href="./assets/');
     content = content.replace(new RegExp(`src="${assetsPath}/`, 'g'), 'src="./assets/');
     content = content.replace(/href="\/favicon\.svg"/g, 'href="./favicon.svg"');
-    // include 파일에서 사용하는 상대 경로도 변환 (../assets/ → ./assets/)
+    // include 파일에서 사용하는 상대 경로도 변환
     content = content.replace(/src="\.\.\/assets\//g, 'src="./assets/');
     content = content.replace(/href="\.\.\/assets\//g, 'href="./assets/');
-    // HTML 페이지 링크 경로 변환 (/html/... → ./html/...)
-    content = content.replace(new RegExp(`href="${pagesPath}/`, 'g'), 'href="./html/');
   } else {
     content = content.replace(new RegExp(`href="${assetsPath}/`, 'g'), 'href="../assets/');
     content = content.replace(new RegExp(`src="${assetsPath}/`, 'g'), 'src="../assets/');
     content = content.replace(/href="\/favicon\.svg"/g, 'href="../favicon.svg"');
-    // HTML 페이지 링크 경로 변환 (/html/... → ../html/...)
-    content = content.replace(new RegExp(`href="${pagesPath}/`, 'g'), 'href="../html/');
   }
 
   // file:// 프로토콜에서도 작동하도록 crossorigin 속성 제거
@@ -607,6 +644,12 @@ async function processHTML(options = {}) {
           viewport: config.viewport || { mode: 'adaptive', fixedWidth: 1600 },
           assetsPath: config.pathAliases?.assetsPath || '/assets',
           pagesPath: config.pathAliases?.pagesPath || '/pages',
+          // 파생 경로 별칭 (assetsPath, pagesPath 기반)
+          css: (config.pathAliases?.assetsPath || '/assets') + '/css',
+          js: (config.pathAliases?.assetsPath || '/assets') + '/js',
+          images: (config.pathAliases?.assetsPath || '/assets') + '/images',
+          fonts: (config.pathAliases?.assetsPath || '/assets') + '/fonts',
+          pages: config.pathAliases?.pagesPath || '/pages',
         },
       }),
     )
@@ -661,6 +704,12 @@ async function processHTML(options = {}) {
           viewport: config.viewport || { mode: 'adaptive', fixedWidth: 1600 },
           assetsPath: config.pathAliases?.assetsPath || '/assets',
           pagesPath: config.pathAliases?.pagesPath || '/pages',
+          // 파생 경로 별칭 (assetsPath, pagesPath 기반)
+          css: (config.pathAliases?.assetsPath || '/assets') + '/css',
+          js: (config.pathAliases?.assetsPath || '/assets') + '/js',
+          images: (config.pathAliases?.assetsPath || '/assets') + '/images',
+          fonts: (config.pathAliases?.assetsPath || '/assets') + '/fonts',
+          pages: config.pathAliases?.pagesPath || '/pages',
         },
       }),
     )
